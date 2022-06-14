@@ -7,6 +7,11 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		91833B44285790BB008C0E65 /* TechRunnerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91833B43285790BB008C0E65 /* TechRunnerView.swift */; };
+		91833B462857A06E008C0E65 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 91833B452857A06E008C0E65 /* Launch Screen.storyboard */; };
+		91A068C02857742D00F3FBF0 /* Gzip in Frameworks */ = {isa = PBXBuildFile; productRef = 91A068BF2857742D00F3FBF0 /* Gzip */; };
+		91E874BE2857AA2200C7AB7B /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 91E874BC2857AA2200C7AB7B /* Localizable.strings */; };
+		91E874C12857AA3400C7AB7B /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 91E874BF2857AA3400C7AB7B /* Localizable.strings */; };
 		91F9929628575F3600745F77 /* ZstuRunnerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91F9929528575F3600745F77 /* ZstuRunnerApp.swift */; };
 		91F9929828575F3600745F77 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91F9929728575F3600745F77 /* ContentView.swift */; };
 		91F9929A28575F3700745F77 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 91F9929928575F3700745F77 /* Assets.xcassets */; };
@@ -34,6 +39,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		91833B43285790BB008C0E65 /* TechRunnerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TechRunnerView.swift; sourceTree = "<group>"; };
+		91833B452857A06E008C0E65 /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
+		91E874BD2857AA2200C7AB7B /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = Localizable.strings; sourceTree = "<group>"; };
+		91E874C02857AA3400C7AB7B /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = Localizable.strings; sourceTree = "<group>"; };
 		91F9929228575F3600745F77 /* ZstuRunner.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ZstuRunner.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		91F9929528575F3600745F77 /* ZstuRunnerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZstuRunnerApp.swift; sourceTree = "<group>"; };
 		91F9929728575F3600745F77 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -51,6 +60,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				91A068C02857742D00F3FBF0 /* Gzip in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -71,9 +81,28 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		91E874B92857A9A800C7AB7B /* en.lproj */ = {
+			isa = PBXGroup;
+			children = (
+				91E874BC2857AA2200C7AB7B /* Localizable.strings */,
+			);
+			path = en.lproj;
+			sourceTree = "<group>";
+		};
+		91E874BB2857A9CF00C7AB7B /* zh-Hans.lproj */ = {
+			isa = PBXGroup;
+			children = (
+				91E874BF2857AA3400C7AB7B /* Localizable.strings */,
+			);
+			path = "zh-Hans.lproj";
+			sourceTree = "<group>";
+		};
 		91F9928928575F3600745F77 = {
 			isa = PBXGroup;
 			children = (
+				91E874B92857A9A800C7AB7B /* en.lproj */,
+				91E874BB2857A9CF00C7AB7B /* zh-Hans.lproj */,
+				91833B452857A06E008C0E65 /* Launch Screen.storyboard */,
 				91F9929428575F3600745F77 /* ZstuRunner */,
 				91F992A528575F3800745F77 /* ZstuRunnerTests */,
 				91F992AF28575F3800745F77 /* ZstuRunnerUITests */,
@@ -96,6 +125,7 @@
 			children = (
 				91F9929528575F3600745F77 /* ZstuRunnerApp.swift */,
 				91F9929728575F3600745F77 /* ContentView.swift */,
+				91833B43285790BB008C0E65 /* TechRunnerView.swift */,
 				91F9929928575F3700745F77 /* Assets.xcassets */,
 				91F9929B28575F3700745F77 /* Preview Content */,
 			);
@@ -143,6 +173,9 @@
 			dependencies = (
 			);
 			name = ZstuRunner;
+			packageProductDependencies = (
+				91A068BF2857742D00F3FBF0 /* Gzip */,
+			);
 			productName = ZstuRunner;
 			productReference = 91F9929228575F3600745F77 /* ZstuRunner.app */;
 			productType = "com.apple.product-type.application";
@@ -213,8 +246,12 @@
 			knownRegions = (
 				en,
 				Base,
+				"zh-Hans",
 			);
 			mainGroup = 91F9928928575F3600745F77;
+			packageReferences = (
+				91A068BE2857742D00F3FBF0 /* XCRemoteSwiftPackageReference "GzipSwift" */,
+			);
 			productRefGroup = 91F9929328575F3600745F77 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -231,6 +268,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				91E874C12857AA3400C7AB7B /* Localizable.strings in Resources */,
+				91833B462857A06E008C0E65 /* Launch Screen.storyboard in Resources */,
+				91E874BE2857AA2200C7AB7B /* Localizable.strings in Resources */,
 				91F9929D28575F3700745F77 /* Preview Assets.xcassets in Resources */,
 				91F9929A28575F3700745F77 /* Assets.xcassets in Resources */,
 			);
@@ -259,6 +299,7 @@
 			files = (
 				91F9929828575F3600745F77 /* ContentView.swift in Sources */,
 				91F9929628575F3600745F77 /* ZstuRunnerApp.swift in Sources */,
+				91833B44285790BB008C0E65 /* TechRunnerView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -293,6 +334,25 @@
 			targetProxy = 91F992AD28575F3800745F77 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		91E874BC2857AA2200C7AB7B /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				91E874BD2857AA2200C7AB7B /* en */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+		91E874BF2857AA3400C7AB7B /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				91E874C02857AA3400C7AB7B /* zh-Hans */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		91F992B428575F3800745F77 /* Debug */ = {
@@ -423,6 +483,7 @@
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = "Launch Screen.storyboard";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -452,6 +513,7 @@
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UILaunchStoryboardName = "Launch Screen.storyboard";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -583,6 +645,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		91A068BE2857742D00F3FBF0 /* XCRemoteSwiftPackageReference "GzipSwift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/1024jp/GzipSwift.git";
+			requirement = {
+				branch = develop;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		91A068BF2857742D00F3FBF0 /* Gzip */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 91A068BE2857742D00F3FBF0 /* XCRemoteSwiftPackageReference "GzipSwift" */;
+			productName = Gzip;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 91F9928A28575F3600745F77 /* Project object */;
 }

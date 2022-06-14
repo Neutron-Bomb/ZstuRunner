@@ -1,0 +1,39 @@
+/* 
+  Localizable.strings
+  ZstuRunner
+
+  Created by 陈驰坤 on 2022/6/14.
+  
+*/
+
+"Current term's total mileage" = "本学期总里程";
+"Total mileage" = "总里程";
+"Term" = "学期";
+"Freshman 1" = "大一上";
+"Freshman 2" = "大一下";
+"Sophomore 1" = "大二上";
+"Sophomore 2" = "大二下";
+"Junior 1" = "大三上";
+"Junior 2" = "大三下";
+"Senior 1" = "大四上";
+"Senior 2" = "大四下";
+"refresh" = "刷新";
+"Overview" = "一览";
+"Configurations" = "选项";
+"Choose your run mode" = "请选择跑步模式";
+"In-area Mode" = "区域内跑步";
+"Oriented Mode" = "校内定向跑";
+"Let's Go!" = "开始";
+"Run" = "跑步";
+"Login" = "登录";
+"Change Password" = "修改密码";
+"Find Password" = "找回密码";
+"Logout" = "登出";
+"My" = "我的";
+"Student ID" = "学号";
+"your student ID" = "你的学号";
+"Password" = "密码";
+"your password" = "你的密码";
+"History" = "历史记录";
+"Back" = "返回";
+
