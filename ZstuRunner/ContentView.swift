@@ -36,8 +36,9 @@ struct ContentView: View {
     }
     
     @State private var term: Term = .freshman1
+    @State private var isRunning = false
     
-    @State private var selectedTab = 0
+    @State private var selectedTab = 1
     @State var isLogged = false
     
     @State private var username = ""
@@ -120,10 +121,16 @@ struct ContentView: View {
                         }
                     }
                     Section {
-                        NavigationLink("", destination: { RunnerView().navigationBarBackButtonHidden(true) }).opacity(0).overlay {
-                            Text("Let's Go!").bold().foregroundColor(.white)
-                        }
-                            .listRowBackground(RoundedRectangle(cornerRadius: 2).foregroundColor(.accentColor))
+                        Button(action: { isRunning.toggle() }, label: {
+                            HStack {
+                                Spacer()
+                                Text("Let's Go!").bold().foregroundColor(.white)
+                                Spacer()
+                            }
+                        }).listRowBackground(RoundedRectangle(cornerRadius: 2).foregroundColor(.accentColor))
+                            .fullScreenCover(isPresented: $isRunning) {
+                                RunnerView()
+                            }
                     }
                 }.navigationTitle("Run")
                     .scrollDisabled(true)
@@ -204,10 +211,13 @@ struct ContentView: View {
         if secretForwarding.mode == .tech {
             TechRunnerView(secretForwarding: secretForwarding)
         } else {
-            TabView(selection: $selectedTab) {
-                overview.tabItem { Label("Overview", systemImage: "speedometer")}.tag(0)
-                run.tabItem { Label("Run", systemImage: "figure.run") }.tag(1).badge("Go!")
-                my.tabItem { Label("My", systemImage: "person.fill") }.tag(2)
+            NavigationView {
+                TabView(selection: $selectedTab) {
+                    overview.tabItem { Label("Overview", systemImage: "speedometer")}.tag(0)
+                    run.tabItem { Label("Run", systemImage: "figure.run") }.tag(1).badge("Go!")
+                    my.tabItem { Label("My", systemImage: "person.fill") }.tag(2)
+                }
+                NavigationLink("", destination: {}).id("123")
             }
         }
     }
