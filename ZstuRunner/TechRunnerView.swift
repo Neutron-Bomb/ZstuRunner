@@ -202,7 +202,7 @@ struct TechRunnerView: View {
                 Text("You're running TechRunner on a Unknown platform.\n Please try on iPhone or iPad!")
             }
             VStack {
-                Button("Switch back") { secretForwarding.mode = .zstu }
+                Button("Switch back") { secretForwarding.mode = .zstu }.buttonStyle(.bordered).buttonBorderShape(.capsule)
                 Spacer()
             }
         }

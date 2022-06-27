@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import MapKit
 import WebKit
 import Gzip
 
@@ -38,35 +39,51 @@ struct ContentView: View {
     @State private var term: Term = .freshman1
     @State private var isRunning = false
     
-    @State private var selectedTab = 1
+    @State var selectedTab = 1
     @State var isLogged = false
     
-    @State private var username = ""
+    @State var username = ""
     @State private var password = ""
     
     @State private var runMode: RunMode = .inArea
     
     @State var dist: Double = 0
     
-    @State var mileage_a: Double = 0
-    @State var mileage_b: Double = 120
+    @State var area_a: Double = 0
+    @State var orientate_a: Double = 0
+    @State private var mileage_b: Double = 120
+    
+    @State var isUsernameEmpty = false
     
     var overview: some View {
         NavigationView {
             if isLogged {
                 List {
                     Section("Current term's total mileage") {
-                        DashboardPanelView("Total mileage", a: mileage_a, b: mileage_b, parameter: "km").padding()
-                        Picker("Term", selection: $term) {
-                            Text("Freshman 1").tag(Term.freshman1)
-                            Text("Freshman 2").tag(Term.freshman2)
-                            Text("Sophomore 1").tag(Term.sophomore1)
-                            Text("Sophomore 2").tag(Term.sophomore2)
-                            Text("Junior 1").tag(Term.junior1)
-                            Text("Junior 2").tag(Term.junior2)
-                            Text("Senior 1").tag(Term.senior1)
-                            Text("Senior 2").tag(Term.senior2)
+                        DashboardPanelView("Total mileage", a: area_a + orientate_a, b: mileage_b, parameter: "km").padding()
+                        HStack {
+                            Text("ORIENTATE_DIST")
+                            Spacer()
+                            Text("\(String(format: "%.01f", orientate_a))km")
+                            
                         }
+                        HStack {
+                            Text("AREA_DIST")
+                            Spacer()
+                            Text("\(String(format: "%.01f", area_a))km")
+                            
+                        }
+//                        这个是一个学期选择器，本来是用来查询每个学期的跑步情况（暂时弃用）
+//                        Picker("Term", selection: $term) {
+//                            Text("Freshman 1").tag(Term.freshman1)
+//                            Text("Freshman 2").tag(Term.freshman2)
+//                            Text("Sophomore 1").tag(Term.sophomore1)
+//                            Text("Sophomore 2").tag(Term.sophomore2)
+//                            Text("Junior 1").tag(Term.junior1)
+//                            Text("Junior 2").tag(Term.junior2)
+//                            Text("Senior 1").tag(Term.senior1)
+//                            Text("Senior 2").tag(Term.senior2)
+//                        }
                     }
                     Section {
                         Button("refresh") {
@@ -76,29 +93,40 @@ struct ContentView: View {
                                                            "Content-Encoding": "gzip",
                                                            "User-Agent": "Dalvik/2.1.0 (Linux; U; Android 11; RMX1931 Build/RKQ1.200928.002)",
                                                            "Accept-Encoding": "gzip"]
-                            let task = URLSession.shared.uploadTask(with: request, from: try! "{'studentno':'\(username)','uid':'\(username)'}".data(using: .utf8)?.gzipped()) { data, response, error in
-                                struct RunData: Codable {
-                                    var m: String
+                            if !username.isEmpty {
+                                isUsernameEmpty = false
+                                let task = URLSession.shared.uploadTask(with: request, from: try! "{'studentno':'\(username)','uid':'\(username)'}".data(using: .utf8)?.gzipped()) { data, response, error in
+                                    struct RunData: Codable {
+                                        var m: String
+                                    }
+                                    if let error = error {
+                                        print("error: \(error)")
+                                        return
+                                    }
+                                    guard let response = response as? HTTPURLResponse, (200 ... 299).contains(response.statusCode) else {
+                                        print("Server error")
+                                        return
+                                    }
+                                    if let mimeType = response.mimeType,
+                                        mimeType == "application/json",
+                                        let data = data,
+                                        let dataString = String(data: data, encoding: .utf8) {
+                                        print("got data: \(dataString)")
+                                        let decoder = try! JSONDecoder().decode(RunData.self, from: data)
+                                        if let areaIndex = decoder.m.firstIndex(of: "动") {
+                                            area_a = Double(decoder.m[decoder.m.index(areaIndex, offsetBy: 2) ..< (decoder.m.lastIndex(of: "公") ?? decoder.m.endIndex)]) ?? 0
+                                            if let orieIndex = decoder.m.firstIndex(of: "跑") {
+                                                orientate_a = Double(decoder.m[decoder.m.index(orieIndex, offsetBy: 2) ..< (decoder.m.firstIndex(of: "公") ?? decoder.m.endIndex)]) ?? 0
+                                            }
+                                        }
+                                    }
                                 }
-                                if let error = error {
-                                    print("error: \(error)")
-                                    return
-                                }
-                                guard let response = response as? HTTPURLResponse, (200 ... 299).contains(response.statusCode) else {
-                                    print("Server error")
-                                    return
-                                }
-                                if let mimeType = response.mimeType,
-                                    mimeType == "application/json",
-                                    let data = data,
-                                    let dataString = String(data: data, encoding: .utf8) {
-                                    print("got data: \(dataString)")
-                                    let decoder = try! JSONDecoder().decode(RunData.self, from: data)
-                                    mileage_a = Double(decoder.m[decoder.m.index(decoder.m.firstIndex(of: ":") ?? decoder.m.endIndex, offsetBy: 1)..<(decoder.m.firstIndex(of: "公") ?? decoder.m.endIndex)]) ?? 0
-                                }
+                                task.resume()
+                            } else {
+                                isUsernameEmpty = true
                             }
-                            task.resume()
-                            
+                        }.alert("ID_EMPTY", isPresented: $isUsernameEmpty) {
+                            Button("Dismiss", role: .cancel) {}
                         }
                     }
                 }.navigationTitle("Overview")
@@ -137,14 +165,6 @@ struct ContentView: View {
             } else {
                 Button("Login", action: { selectedTab = 2 })
             }
-//            GeometryReader { proxy in
-//                ScrollView {
-//                    VStack {
-//                        Text("!                             ")
-//                    }.background(.background).frame(width: proxy.size.width)
-//                }.frame(width: proxy.size.width)
-//                    .background(.regularMaterial)
-//            }.navigationTitle("Run")
         }
     }
     
@@ -152,26 +172,41 @@ struct ContentView: View {
         NavigationView {
             if isLogged {
                 List {
-                    HStack {
-                        Image("portrait")
-                            .resizable().aspectRatio(contentMode: .fit)
-                            .frame(height: 64).clipShape(Circle()).padding(.trailing)
+                    NavigationLink(destination: {
+                        List  {
+                            Section {
+                                NavigationLink("Change Password", destination: { Password(.change).navigationBarTitleDisplayMode(.inline) })
+                                NavigationLink("Find Password", destination: {Password(.reset).navigationBarTitleDisplayMode(.inline) })
+                            }
+                            
+                            Section {
+                                Button("Logout", action: { isLogged.toggle() }).foregroundColor(.red)
+                            }
+                        }.navigationTitle("MY_SETTINGS")
+                    }, label: {
+                        HStack {
+                            Image("portrait")
+                                .resizable().aspectRatio(contentMode: .fit)
+                                .frame(height: 64).clipShape(Circle()).padding(.trailing)
                             VStack(alignment: .leading) {
                                 Text("Haren").font(.title2)
                                 Text(username).font(.footnote)
                             }
-                    }
-                    
+                        }
+                    })
                     Section {
-                        NavigationLink("Change Password", destination: { Password(.change).navigationBarTitleDisplayMode(.inline) })
-                        NavigationLink("Find Password", destination: {Password(.reset).navigationBarTitleDisplayMode(.inline) })
+                        NavigationLink("CHECK_RUNNING_PLAN", destination: {
+                            
+                        })
                     }
-                    
                     Section {
-                        Button("Logout", action: { isLogged.toggle() }).foregroundColor(.red)
+                        Text("VERSION")
+                        Text("CHECK_UPDATE")
+                        Text("MORE_APPS")
                     }
                 }.navigationTitle("My")
             } else {
+                // login menu
                 List {
                     Section {
                         HStack {
@@ -211,13 +246,10 @@ struct ContentView: View {
         if secretForwarding.mode == .tech {
             TechRunnerView(secretForwarding: secretForwarding)
         } else {
-            NavigationView {
-                TabView(selection: $selectedTab) {
-                    overview.tabItem { Label("Overview", systemImage: "speedometer")}.tag(0)
-                    run.tabItem { Label("Run", systemImage: "figure.run") }.tag(1).badge("Go!")
-                    my.tabItem { Label("My", systemImage: "person.fill") }.tag(2)
-                }
-                NavigationLink("", destination: {}).id("123")
+            TabView(selection: $selectedTab) {
+                overview.tabItem { Label("Overview", systemImage: "speedometer")}.tag(0)
+                run.tabItem { Label("Run", systemImage: "figure.run") }.tag(1).badge("Go!")
+                my.tabItem { Label("My", systemImage: "person.fill") }.tag(2)
             }
         }
     }
@@ -270,16 +302,128 @@ struct DashboardPanelView: View {
 
 struct RunnerView: View {
     
-    @Environment(\.dismiss) private var dismiss
+    @Environment(\.dismiss) private var dismiss // Button("Back", action: {dismiss()})
+    @State private var selection = 1
+    
+    @State var timer: Timer? = nil
+    
+    @State var ready = 3
+    @State var isReady = false
+    
+    
+    var control: some View {
+        HStack {
+            Button(action: {startTimer()}) { Label("RUN_PAUSE", systemImage: "pause.circle")}
+            Divider().fixedSize()
+            Button(action: { dismiss() }) { Label("RUN_FINISH", systemImage: "stop.circle")}
+        }
+    }
+    
+    var overview: some View {
+        VStack {
+            if isReady {
+                Spacer()
+                HStack {
+                    Spacer()
+                    Label("RUN_TIME", systemImage: "")
+                    Text("123")
+                    Spacer()
+                    Label("RUN_DIST", systemImage: "")
+                    Text("2km")
+                    Spacer()
+                }
+                Spacer()
+                HStack {
+                    Spacer()
+                    Label("RUN_TIME", systemImage: "")
+                    Text("123")
+                    Spacer()
+                    Label("RUN_TIME", systemImage: "")
+                    Text("456")
+                    Spacer()
+                }
+                Spacer()
+                
+            } else {
+                if ready != 0 {
+                    Text("\(ready)").bold().font(.largeTitle)
+                } else {
+                    Text("Go!").bold().font(.largeTitle)
+                }
+                
+            }
+        }
+    }
+    
+    func startTimer() {
+        timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { tempTimer in
+            ready -= 1
+            if ready < 0 {
+                timer?.invalidate()
+                timer = nil
+                isReady = true
+            }
+        }
+    }
     
     var body: some View {
-        GeometryReader { proxy in
-            ScrollView {
-                VStack {
-                    Button("Back", action: {dismiss()})
-                }.frame(width: proxy.size.width)
-            }.frame(width: proxy.size.width)
-        }
+        VStack(spacing: 0) {
+            Map(coordinateRegion: .constant(.init(center: CLLocationCoordinate2D(latitude: 30.313304, longitude: 120.35641), latitudinalMeters: 600, longitudinalMeters: 600)))
+                .overlay {
+                    VStack {
+                        Spacer()
+                        TabView(selection: $selection) {
+                            Section {
+                                control.tag(0)
+                                overview.tag(1)
+                            }.frame(maxWidth: .infinity, maxHeight: .infinity)
+                                .background(.regularMaterial)
+                                .clipShape(RoundedRectangle(cornerRadius: 16))
+                                .padding()
+                            
+                        }.tabViewStyle(.page)
+                            .frame(height: 320)
+                    }
+                }
+        }.edgesIgnoringSafeArea([.top, .bottom])
+            .onAppear {
+                startTimer()
+            }
+        
+//        VStack(spacing: 0) {
+//            Map(coordinateRegion: .constant(.init(center: CLLocationCoordinate2D(latitude: 30.313304, longitude: 120.35641), latitudinalMeters: 600, longitudinalMeters: 600))).frame(height: 600)
+//            TabView(selection: $selection) {
+//                if isReady {
+//                    Section {
+//                        control.tag(0)
+//                        overview.tag(1)
+//                    }.frame(maxWidth: .infinity, maxHeight: .infinity)
+//                        .background(.regularMaterial)
+//                        .clipShape(RoundedRectangle(cornerRadius: 16))
+//                        .padding()
+//                } else {
+//                    Section {
+//                        control.tag(0)
+//                        overview.tag(1)
+//                    }.frame(maxWidth: .infinity, maxHeight: .infinity)
+//                        .background(.regularMaterial)
+//                        .clipShape(RoundedRectangle(cornerRadius: 16))
+//                        .padding()
+//                }
+//            }.tabViewStyle(.page)
+//        }.edgesIgnoringSafeArea(.top)
+    }
+    
+}
+
+struct RunnerMapView: UIViewRepresentable {
+    
+    func makeUIView(context: Context) -> MKMapView {
+        return MKMapView(frame: .zero)
+    }
+    
+    func updateUIView(_ uiView: MKMapView, context: Context) {
+        uiView.showsUserLocation = true
     }
 }
 
@@ -315,7 +459,9 @@ struct Password: UIViewRepresentable {
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView(isLogged: true)
+        ContentView(selectedTab: 2, isLogged: true, username: "2020316101062")
+            .environment(\.locale, .init(identifier: "zh-Hans"))
+        RunnerView()
             .environment(\.locale, .init(identifier: "zh-Hans"))
     }
 }
