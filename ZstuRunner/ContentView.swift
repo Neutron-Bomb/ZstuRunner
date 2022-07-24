@@ -5,25 +5,53 @@
 //  Created by 陈驰坤 on 2022/6/13.
 //
 
+import _MapKit_SwiftUI
+import CoreLocation
 import SwiftUI
-import MapKit
 import WebKit
+import UIKit
 import Gzip
 
-class SecretForwarding: ObservableObject {
+class Settings: ObservableObject {
     
     init(mode: Mode) {
         self.mode = mode
     }
     
     enum Mode { case zstu, tech }
+    
     @Published var mode: Mode
+    @Published var stuID: String = ""
+    @Published var manager = LocationManager()
+    @Published var tracking: MapUserTrackingMode = .follow
 }
 
+extension LocalizedStringKey {
+// imagine `self` is equal to LocalizedStringKey("KEY_HERE")
+
+    var stringKey: String {
+        let description = "\(self)"
+        // in this example description will be `LocalizedStringKey(key: "KEY_HERE", hasFormatting: false, arguments: [])`
+        // for more clarity, `let description = "\(self)"` will have no differences
+        // compared to `let description = "\(LocalizedStringKey(key: "KEY_HERE", hasFormatting: false, arguments: []))"` in this example.
+        
+        let components = description.components(separatedBy: "key: \"")
+            .map { $0.components(separatedBy: "\",") }
+        // here we separate the string by its components.
+        // in `LocalizedStringKey(key: "KEY_HERE", hasFormatting: false, arguments: [])`
+        // our key lays between two strings which are `key: "` and `",`.
+        // if we manage to get what is between `key: "` and `",`, that would be our Localization Key
+        // which in this example is `KEY_HERE`
+        
+        return components[1][0]
+        // by trial, we know that `components[1][0]` will always be our localization Key
+        // which is `KEY_HERE` in this example.
+    }
+}
 
 struct ContentView: View {
     
-    @ObservedObject var secretForwarding = SecretForwarding(mode: .zstu)
+    @ObservedObject var settings = Settings(mode: .zstu)
     
     var columns: [GridItem] = Array(repeating: .init(.flexible()), count: 2)
     
@@ -31,19 +59,25 @@ struct ContentView: View {
         case inArea, oriented
         var id: Self { self }
     }
+    
     enum Term: String, CaseIterable, Identifiable {
         case freshman1, freshman2, sophomore1, sophomore2, junior1, junior2, senior1, senior2
         var id: Self { self }
     }
     
+    @Environment(\.colorScheme) var colorScheme
+    
+// MARK: - @State Properties
+    @State var moreApps = false
+    
     @State private var term: Term = .freshman1
     @State private var isRunning = false
     
     @State var selectedTab = 1
-    @State var isLogged = false
+    @State var isLogged = UserDefaults.standard.bool(forKey: "isLogged")
     
-    @State var username = ""
-    @State private var password = ""
+    @State var stuID = UserDefaults.standard.string(forKey: "stuID") ?? ""
+    @State private var password = UserDefaults.standard.string(forKey: "Password") ?? ""
     
     @State private var runMode: RunMode = .inArea
     
@@ -53,25 +87,30 @@ struct ContentView: View {
     @State var orientate_a: Double = 0
     @State private var mileage_b: Double = 120
     
-    @State var isUsernameEmpty = false
+    @State var isstuIDEmpty = false
+    @State var isLocationRequestDenied = false
     
+    @State var username = UserDefaults.standard.string(forKey: "Username") ?? LocalizedStringKey("_USERNAME").stringKey
+    
+    // Overview
+    @State var isRefreshing = false
+    
+// MARK: - Overview
     var overview: some View {
         NavigationView {
             if isLogged {
                 List {
-                    Section("Current term's total mileage") {
-                        DashboardPanelView("Total mileage", a: area_a + orientate_a, b: mileage_b, parameter: "km").padding()
+                    Section("CURRENT_TERM_TOTAL_MILEAGE") {
+                        DashboardPanelView("TOTAL_MILEAGE", a: area_a + orientate_a, b: mileage_b, parameter: "km").padding()
                         HStack {
                             Text("ORIENTATE_DIST")
                             Spacer()
                             Text("\(String(format: "%.01f", orientate_a))km")
-                            
                         }
                         HStack {
                             Text("AREA_DIST")
                             Spacer()
                             Text("\(String(format: "%.01f", area_a))km")
-                            
                         }
 //                        这个是一个学期选择器，本来是用来查询每个学期的跑步情况（暂时弃用）
 //                        Picker("Term", selection: $term) {
@@ -86,88 +125,93 @@ struct ContentView: View {
 //                        }
                     }
                     Section {
-                        Button("refresh") {
-                            var request = URLRequest(url: URL(string: "http://10.11.246.182:8029/DragonFlyServ/Api/webserver/getRunDataSummary")!)
-                            request.httpMethod = "POST"
-                            request.allHTTPHeaderFields = ["Content-Type": "application/x-www-form-urlencoded",
-                                                           "Content-Encoding": "gzip",
-                                                           "User-Agent": "Dalvik/2.1.0 (Linux; U; Android 11; RMX1931 Build/RKQ1.200928.002)",
-                                                           "Accept-Encoding": "gzip"]
-                            if !username.isEmpty {
-                                isUsernameEmpty = false
-                                let task = URLSession.shared.uploadTask(with: request, from: try! "{'studentno':'\(username)','uid':'\(username)'}".data(using: .utf8)?.gzipped()) { data, response, error in
-                                    struct RunData: Codable {
-                                        var m: String
-                                    }
-                                    if let error = error {
-                                        print("error: \(error)")
-                                        return
-                                    }
-                                    guard let response = response as? HTTPURLResponse, (200 ... 299).contains(response.statusCode) else {
-                                        print("Server error")
-                                        return
-                                    }
-                                    if let mimeType = response.mimeType,
-                                        mimeType == "application/json",
-                                        let data = data,
-                                        let dataString = String(data: data, encoding: .utf8) {
-                                        print("got data: \(dataString)")
-                                        let decoder = try! JSONDecoder().decode(RunData.self, from: data)
-                                        if let areaIndex = decoder.m.firstIndex(of: "动") {
-                                            area_a = Double(decoder.m[decoder.m.index(areaIndex, offsetBy: 2) ..< (decoder.m.lastIndex(of: "公") ?? decoder.m.endIndex)]) ?? 0
-                                            if let orieIndex = decoder.m.firstIndex(of: "跑") {
-                                                orientate_a = Double(decoder.m[decoder.m.index(orieIndex, offsetBy: 2) ..< (decoder.m.firstIndex(of: "公") ?? decoder.m.endIndex)]) ?? 0
-                                            }
-                                        }
-                                    }
-                                }
-                                task.resume()
+                        Button("_REFRESH") {
+                            if !stuID.isEmpty {
+                                isstuIDEmpty = false
+//                                { (_ tuple: (orientate: Double, area: Double)) in
+//                                    orientate_a = tuple.orientate
+//                                    area_a = tuple.area
+//                                }(overviewRefresh(stuID))
+                                print(overviewRefresh(stuID))
                             } else {
-                                isUsernameEmpty = true
+                                isstuIDEmpty = true
                             }
-                        }.alert("ID_EMPTY", isPresented: $isUsernameEmpty) {
+                        }.alert("ID_EMPTY", isPresented: $isstuIDEmpty) {
                             Button("Dismiss", role: .cancel) {}
                         }
                     }
-                }.navigationTitle("Overview")
+                }.navigationTitle("OVERVIEW")
             } else {
-                Button("Login", action: { selectedTab = 2 })
+                Button("_LOGIN", action: { selectedTab = 2 })
             }
-            
         }
-        
     }
     
+// MARK: - Run
     var run: some View {
         NavigationView {
             if isLogged {
-                List {
-                    Section("Configurations") {
-                        Picker(selection: $runMode, label: Text("Choose your run mode")) {
-                            Text("In-area Mode").tag(RunMode.inArea)
-                            Text("Oriented Mode").tag(RunMode.oriented)
-                        }
-                    }
-                    Section {
-                        Button(action: { isRunning.toggle() }, label: {
-                            HStack {
-                                Spacer()
-                                Text("Let's Go!").bold().foregroundColor(.white)
-                                Spacer()
-                            }
-                        }).listRowBackground(RoundedRectangle(cornerRadius: 2).foregroundColor(.accentColor))
-                            .fullScreenCover(isPresented: $isRunning) {
-                                RunnerView()
-                            }
-                    }
-                }.navigationTitle("Run")
-                    .scrollDisabled(true)
+                if #available(iOS 16.0, *) {
+                    run_legacy.scrollDisabled(true)
+                } else {
+                    // Fallback on earlier versions
+                    run_legacy
+                }
             } else {
-                Button("Login", action: { selectedTab = 2 })
+                Button("_LOGIN", action: { selectedTab = 2 })
             }
         }
     }
+
+    var run_legacy: some View {
+        List {
+            Section("CONFIGURATION") {
+                Picker(selection: $runMode, label: Text("CHOOSE_RUN_MODE")) {
+                    Text("IN_AREA_MODE").tag(RunMode.inArea)
+                    Text("ORIENTED_MODE").tag(RunMode.oriented)
+                }
+            }
+            Section {
+                Map(
+                    coordinateRegion: .constant(.init(center: .init(latitude: 30.3135, longitude: 120.3565), latitudinalMeters: 600, longitudinalMeters: 600)),
+                    interactionModes: MapInteractionModes(),
+                    showsUserLocation: true,
+                    userTrackingMode: $settings.tracking
+                ).background(RoundedCorners(color: .blue, tl: 0, tr: 0, bl: 0, br: 0)).scaledToFit()
+                    .listRowBackground(EmptyView()).listRowInsets(.init(top: 0, leading: 0, bottom: 0, trailing: 0))
+                Label {
+                    Text("Location Verified")
+                } icon: {
+                    Image(systemName: "checkmark.circle").foregroundColor(.green)
+                }
+            }.listRowSeparator(.hidden)
+            Section {
+                Button(action: {
+                    if LocationManager().manager.authorizationStatus == .notDetermined {
+                        LocationManager().manager.requestWhenInUseAuthorization()
+                    } else if LocationManager().manager.authorizationStatus == .denied {
+                        isLocationRequestDenied = true
+                    } else {
+                        isRunning = true
+                    }
+                }, label: {
+                    HStack {
+                        Spacer()
+                        Text("_GO").bold().foregroundColor(.white)
+                        Spacer()
+                    }
+                }).listRowBackground(RoundedRectangle(cornerRadius: 2).foregroundColor(.accentColor))
+                    .fullScreenCover(isPresented: $isRunning) {
+                        RunnerView()
+                    }
+                    .alert("LOCATION_SERVICE_DENIED", isPresented: $isLocationRequestDenied) {
+                        
+                    }
+            }
+        }.navigationTitle("_RUN")
+    }
     
+// MARK: - My
     var my: some View {
         NavigationView {
             if isLogged {
@@ -175,8 +219,18 @@ struct ContentView: View {
                     NavigationLink(destination: {
                         List  {
                             Section {
-                                NavigationLink("Change Password", destination: { Password(.change).navigationBarTitleDisplayMode(.inline) })
-                                NavigationLink("Find Password", destination: {Password(.reset).navigationBarTitleDisplayMode(.inline) })
+                                HStack {
+                                    Text("CHANGE_USERNAME")
+                                    Spacer()
+                                    TextField("", text: $username).multilineTextAlignment(.trailing)
+                                        .onSubmit {
+                                            UserDefaults.standard.set(username, forKey: "Username")
+                                        }
+                                }
+                            }
+                            Section {
+                                NavigationLink("CHANGE_PASSWORD", destination: { Password(.change).navigationBarTitleDisplayMode(.inline) })
+                                NavigationLink("FIND_PASSWORD", destination: {Password(.reset).navigationBarTitleDisplayMode(.inline) })
                             }
                             
                             Section {
@@ -189,20 +243,45 @@ struct ContentView: View {
                                 .resizable().aspectRatio(contentMode: .fit)
                                 .frame(height: 64).clipShape(Circle()).padding(.trailing)
                             VStack(alignment: .leading) {
-                                Text("Haren").font(.title2)
-                                Text(username).font(.footnote)
+                                Text("\(username)").font(.title2)
+                                Text(stuID).font(.footnote)
                             }
                         }
                     })
                     Section {
-                        NavigationLink("CHECK_RUNNING_PLAN", destination: {
+                        DisclosureGroup("CHECK_RUNNING_PLAN") {
+                            Section {
+                                VStack(alignment: .leading) {
+                                    Text("_BOY").bold().padding(.bottom, 1)
+                                    Section {
+                                        Text("BOY_MIN_DISTANCE")
+                                        Text("BOY_SPEED_RANGE")
+                                    }.padding(.leading)
+                                }
+                                VStack(alignment: .leading) {
+                                    Text("_GIRL").bold().padding(.bottom, 1)
+                                    Section {
+                                        Text("GIRL_MIN_DISTANCE")
+                                        Text("GIRL_SPEED_RANGE")
+                                    }.padding(.leading)
+                                }
+                            }.foregroundColor(.primary)
                             
-                        })
+                        }.accentColor(.init(white: colorScheme == .light ? 0.72 : 0.35))
                     }
                     Section {
-                        Text("VERSION")
-                        Text("CHECK_UPDATE")
-                        Text("MORE_APPS")
+                        HStack {
+                            Text("VERSION")
+                            Spacer()
+                            Text(Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as! String)
+                                .foregroundColor(.secondary)
+                        }
+                        HStack {
+                            Button("CHECK_UPDATE") { }
+                            Spacer()
+                            Text("_LATEST").foregroundColor(.secondary)
+                        }
+                        Button("MORE_APPS", action: { moreApps.toggle() }).fullScreenCover(isPresented: $moreApps, content: { QRCodeView() })
                     }
                 }.navigationTitle("My")
             } else {
@@ -210,222 +289,74 @@ struct ContentView: View {
                 List {
                     Section {
                         HStack {
-                            Text("Student ID").frame(width: 100, alignment: .leading)
-                            TextField("your student ID", text: $username)
+                            Text("Student ID").frame(width: 60, alignment: .leading)
+                            TextField("your student ID", text: $stuID)
                         }
                         HStack {
-                            Text("Password").frame(width: 100, alignment: .leading)
+                            Text("Password").frame(width: 60, alignment: .leading)
                             SecureField("your password", text: $password)
                         }
                     }
                     Section {
                         HStack {
                             Spacer()
-                            NavigationLink("Find Password", destination: { Password(.reset).navigationBarTitleDisplayMode(.inline) }).opacity(0).overlay {
+                            NavigationLink("FIND_PASSWORD", destination: { Password(.reset).navigationBarTitleDisplayMode(.inline) }).opacity(0).overlay {
                                 HStack {
                                     Spacer()
-                                    Text("Find Password").foregroundColor(.accentColor).font(.footnote)
+                                    Text("FIND_PASSWORD").foregroundColor(.accentColor).font(.footnote)
                                 }
                             }
                         }.listRowBackground(EmptyView())
                     }
-                    Button("Login") {
+                    Button("_LOGIN") {
                         if password == "techrunner" {
-                            secretForwarding.mode = .tech
+                            settings.mode = .tech
+                            password = ""
                         } else {
                             isLogged.toggle()
                         }
+                        UserDefaults.standard.set(stuID, forKey: "stuID")
+                        UserDefaults.standard.set(password, forKey: "Password")
+                        UserDefaults.standard.set(isLogged, forKey: "isLogged")
                     }
-                }.navigationTitle("Login")
+                }.navigationTitle("_LOGIN")
             }
             
         }
     }
     
+// MARK: - Body
     var body: some View {
-        if secretForwarding.mode == .tech {
-            TechRunnerView(secretForwarding: secretForwarding)
+        if settings.mode == .tech {
+            TechRunnerView(settings: settings)
         } else {
             TabView(selection: $selectedTab) {
-                overview.tabItem { Label("Overview", systemImage: "speedometer")}.tag(0)
-                run.tabItem { Label("Run", systemImage: "figure.run") }.tag(1).badge("Go!")
+                overview.tabItem { Label("OVERVIEW", systemImage: "speedometer")}.tag(0)
+                run.tabItem { Label("_RUN", systemImage: "figure.run") }.tag(1).badge("Go!")
                 my.tabItem { Label("My", systemImage: "person.fill") }.tag(2)
             }
         }
     }
 }
 
-struct DashboardPanelView: View {
-    
-    init(_ name: String, a: Double, b: Double) {
-        self.name  = name
-        self.a = a
-        self.b = b
-        self.parameter = nil
-    }
-    
-    init(_ name: String, a: Double, b: Double, parameter: String) {
-        self.name  = name
-        self.a = a
-        self.b = b
-        self.parameter = parameter
-    }
-    
-    let name: String
-    var a: Double
-    var b: Double
-    var parameter: String? = nil
-    private var progress: Double { a / b }
-    
-    var history: some View {
-        List {
-            
-        }.navigationTitle("History")
-    }
-    
-    var body: some View {
-        Circle().stroke(lineWidth: 16.0).opacity(0.1).foregroundColor(.accentColor)
-            .overlay {
-                VStack {
-                    Text(String(format: "%.01f", progress * 100) + "%").bold().font(.title)
-                    Text(LocalizedStringKey(name)).font(.title2)
-                    Text("\(String(format: "%.01f", a))/\(String(format: "%.00f", b))\(parameter ?? "")")
-                }
-                Circle()
-                    .trim(from: 0.0, to: progress)
-                    .stroke(style: StrokeStyle(lineWidth: 16.0, lineCap: .round, lineJoin: .round))
-                    .rotationEffect(Angle(degrees: 270.0))
-                    .foregroundColor(.accentColor)
-            }
-    }
-}
 
-struct RunnerView: View {
+struct PageViewController<Page: View>: UIViewControllerRepresentable {
+    var pages: [Page]
     
-    @Environment(\.dismiss) private var dismiss // Button("Back", action: {dismiss()})
-    @State private var selection = 1
-    
-    @State var timer: Timer? = nil
-    
-    @State var ready = 3
-    @State var isReady = false
-    
-    
-    var control: some View {
-        HStack {
-            Button(action: {startTimer()}) { Label("RUN_PAUSE", systemImage: "pause.circle")}
-            Divider().fixedSize()
-            Button(action: { dismiss() }) { Label("RUN_FINISH", systemImage: "stop.circle")}
-        }
-    }
-    
-    var overview: some View {
-        VStack {
-            if isReady {
-                Spacer()
-                HStack {
-                    Spacer()
-                    Label("RUN_TIME", systemImage: "")
-                    Text("123")
-                    Spacer()
-                    Label("RUN_DIST", systemImage: "")
-                    Text("2km")
-                    Spacer()
-                }
-                Spacer()
-                HStack {
-                    Spacer()
-                    Label("RUN_TIME", systemImage: "")
-                    Text("123")
-                    Spacer()
-                    Label("RUN_TIME", systemImage: "")
-                    Text("456")
-                    Spacer()
-                }
-                Spacer()
-                
-            } else {
-                if ready != 0 {
-                    Text("\(ready)").bold().font(.largeTitle)
-                } else {
-                    Text("Go!").bold().font(.largeTitle)
-                }
-                
-            }
-        }
-    }
-    
-    func startTimer() {
-        timer = Timer.scheduledTimer(withTimeInterval: 1.0, repeats: true) { tempTimer in
-            ready -= 1
-            if ready < 0 {
-                timer?.invalidate()
-                timer = nil
-                isReady = true
-            }
-        }
-    }
-    
-    var body: some View {
-        VStack(spacing: 0) {
-            Map(coordinateRegion: .constant(.init(center: CLLocationCoordinate2D(latitude: 30.313304, longitude: 120.35641), latitudinalMeters: 600, longitudinalMeters: 600)))
-                .overlay {
-                    VStack {
-                        Spacer()
-                        TabView(selection: $selection) {
-                            Section {
-                                control.tag(0)
-                                overview.tag(1)
-                            }.frame(maxWidth: .infinity, maxHeight: .infinity)
-                                .background(.regularMaterial)
-                                .clipShape(RoundedRectangle(cornerRadius: 16))
-                                .padding()
-                            
-                        }.tabViewStyle(.page)
-                            .frame(height: 320)
-                    }
-                }
-        }.edgesIgnoringSafeArea([.top, .bottom])
-            .onAppear {
-                startTimer()
-            }
+    func makeUIViewController(context: Context) -> UIPageViewController {
+        let pageViewController = UIPageViewController(
+            transitionStyle: .scroll,
+            navigationOrientation: .horizontal)
         
-//        VStack(spacing: 0) {
-//            Map(coordinateRegion: .constant(.init(center: CLLocationCoordinate2D(latitude: 30.313304, longitude: 120.35641), latitudinalMeters: 600, longitudinalMeters: 600))).frame(height: 600)
-//            TabView(selection: $selection) {
-//                if isReady {
-//                    Section {
-//                        control.tag(0)
-//                        overview.tag(1)
-//                    }.frame(maxWidth: .infinity, maxHeight: .infinity)
-//                        .background(.regularMaterial)
-//                        .clipShape(RoundedRectangle(cornerRadius: 16))
-//                        .padding()
-//                } else {
-//                    Section {
-//                        control.tag(0)
-//                        overview.tag(1)
-//                    }.frame(maxWidth: .infinity, maxHeight: .infinity)
-//                        .background(.regularMaterial)
-//                        .clipShape(RoundedRectangle(cornerRadius: 16))
-//                        .padding()
-//                }
-//            }.tabViewStyle(.page)
-//        }.edgesIgnoringSafeArea(.top)
+        return pageViewController
     }
     
+    func updateUIViewController(_ pageViewController: UIPageViewController, context: Context) {
+            pageViewController.setViewControllers(
+                [UIHostingController(rootView: pages[0])], direction: .forward, animated: true)
+    }
 }
 
-struct RunnerMapView: UIViewRepresentable {
-    
-    func makeUIView(context: Context) -> MKMapView {
-        return MKMapView(frame: .zero)
-    }
-    
-    func updateUIView(_ uiView: MKMapView, context: Context) {
-        uiView.showsUserLocation = true
-    }
-}
 
 struct Password: UIViewRepresentable {
     
@@ -457,9 +388,46 @@ struct Password: UIViewRepresentable {
 }
 
 
+struct RoundedCorners: View {
+    var color: Color = .blue
+    var tl: CGFloat = 0.0
+    var tr: CGFloat = 0.0
+    var bl: CGFloat = 0.0
+    var br: CGFloat = 0.0
+    
+    var body: some View {
+        GeometryReader { geometry in
+            Path { path in
+                
+                let w = geometry.size.width
+                let h = geometry.size.height
+                
+                // Make sure we do not exceed the size of the rectangle
+                let tr = min(min(self.tr, h/2), w/2)
+                let tl = min(min(self.tl, h/2), w/2)
+                let bl = min(min(self.bl, h/2), w/2)
+                let br = min(min(self.br, h/2), w/2)
+                
+                path.move(to: CGPoint(x: w / 2.0, y: 0))
+                path.addLine(to: CGPoint(x: w - tr, y: 0))
+                path.addArc(center: CGPoint(x: w - tr, y: tr), radius: tr, startAngle: Angle(degrees: -90), endAngle: Angle(degrees: 0), clockwise: false)
+                path.addLine(to: CGPoint(x: w, y: h - br))
+                path.addArc(center: CGPoint(x: w - br, y: h - br), radius: br, startAngle: Angle(degrees: 0), endAngle: Angle(degrees: 90), clockwise: false)
+                path.addLine(to: CGPoint(x: bl, y: h))
+                path.addArc(center: CGPoint(x: bl, y: h - bl), radius: bl, startAngle: Angle(degrees: 90), endAngle: Angle(degrees: 180), clockwise: false)
+                path.addLine(to: CGPoint(x: 0, y: tl))
+                path.addArc(center: CGPoint(x: tl, y: tl), radius: tl, startAngle: Angle(degrees: 180), endAngle: Angle(degrees: 270), clockwise: false)
+            }
+            .fill(self.color)
+        }
+    }
+}
+
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView(selectedTab: 2, isLogged: true, username: "2020316101062")
+        ContentView(selectedTab: 1, isLogged: true, stuID: "2020316101023")
+            .environment(\.locale, .init(identifier: "zh-Hans"))
+        ContentView(selectedTab: 2, isLogged: false, stuID: "2020316101023")
             .environment(\.locale, .init(identifier: "zh-Hans"))
         RunnerView()
             .environment(\.locale, .init(identifier: "zh-Hans"))

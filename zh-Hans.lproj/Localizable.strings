@@ -6,8 +6,52 @@
   
 */
 
-"Current term's total mileage" = "本学期总里程";
-"Total mileage" = "总里程";
+// 一览页面
+"ORIENTATE_DIST" = "校内定向跑里程";
+"AREA_DIST" = "区域内跑步里程";
+"CURRENT_TERM_TOTAL_MILEAGE" = "本学期总里程";
+"TOTAL_MILEAGE" = "总里程";
+"_REFRESH" = "刷新";
+"OVERVIEW" = "一览";
+"CONFIGURATION" = "选项";
+"CHOOSE_RUN_MODE" = "请选择跑步模式";
+"IN_AREA_MODE" = "区域内跑步";
+"ORIENTED_MODE" = "校内定向跑";
+"_GO" = "开始";
+"_RUN" = "跑步";
+"_LOGIN" = "登录";
+"CHANGE_PASSWORD" = "修改密码";
+"FIND_PASSWORD" = "找回密码";
+"Logout" = "登出";
+
+"_BOY" = "男生";
+    "BOY_MIN_DISTANCE" = "每1000米记为1次有效";
+    "BOY_SPEED_RANGE" = "速度范围：1.85-5.6米/秒";
+"_GIRL" = "女生";
+    "GIRL_MIN_DISTANCE" = "每1000米记为1次有效";
+    "GIRL_SPEED_RANGE" = "速度范围：1.85-5.6米/秒";
+
+"CHECK_RUNNING_PLAN" = "查看跑步计划";
+"CHECK_UPDATE" = "检查更新";
+"MORE_APPS" = "打开更多应用";
+"VERSION" = "版本号";
+
+// 我的页面
+"_LATEST" = "已是最新";
+"My" = "我的";
+"Student ID" = "学号";
+"your student ID" = "你的学号";
+"Password" = "密码";
+"your password" = "你的密码";
+"History" = "历史记录";
+"Back" = "返回";
+"SHOW_QR_CODE" = "查看校园码";
+"_USERNAME" = "用户";
+"MY_SETTINGS" = "设置";
+"CHANGE_USERNAME" = "修改昵称";
+
+// 废弃
+/*
 "Term" = "学期";
 "Freshman 1" = "大一上";
 "Freshman 2" = "大一下";
@@ -17,23 +61,4 @@
 "Junior 2" = "大三下";
 "Senior 1" = "大四上";
 "Senior 2" = "大四下";
-"refresh" = "刷新";
-"Overview" = "一览";
-"Configurations" = "选项";
-"Choose your run mode" = "请选择跑步模式";
-"In-area Mode" = "区域内跑步";
-"Oriented Mode" = "校内定向跑";
-"Let's Go!" = "开始";
-"Run" = "跑步";
-"Login" = "登录";
-"Change Password" = "修改密码";
-"Find Password" = "找回密码";
-"Logout" = "登出";
-"My" = "我的";
-"Student ID" = "学号";
-"your student ID" = "你的学号";
-"Password" = "密码";
-"your password" = "你的密码";
-"History" = "历史记录";
-"Back" = "返回";
-
+ */

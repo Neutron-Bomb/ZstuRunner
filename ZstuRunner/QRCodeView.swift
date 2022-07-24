@@ -1,0 +1,224 @@
+//
+//  QRCodeView.swift
+//  ZstuRunner
+//
+//  Created by 陈驰坤 on 2022/7/5.
+//
+
+import SwiftUI
+import QRCode
+
+struct QRCodeView: View {
+    
+    var dateFormat = "MM月dd日"
+    var timeFormat = "HH:mm:ss"
+    
+    var qrcodeString: String { "http://e4.zstu.edu.cn/zstu/scanstudent?param1=2020316101023&param2=\(qrcodeRandomInt)" }
+    @State var qrcodeRandomInt = 321820
+    
+    @State var date = Date()
+    
+    @State var stuID = ""
+    @State var name = ""
+    
+    @State var dateString = "00月00日"
+    @State var timeString = "00:00:00"
+    
+    @State var isEditing = false
+    
+    @Environment(\.dismiss) private var dismiss
+    
+    var display: some View {
+        NavigationView {
+            GeometryReader { proxy in
+                ScrollView {
+                    ZStack {
+                        // Background
+                        VStack(spacing: 0) {
+                            Rectangle().frame(height: proxy.size.height / 5).foregroundColor(.blue)
+                            Rectangle().frame(height: 4 * proxy.size.height / 5).foregroundColor(.init(white: 0.9648))
+                        }
+                        
+                        // Contents
+                        VStack(spacing: 0) {
+                            // Card View
+                            VStack(spacing: 5) {
+                                Text("\(dateString)\n\(timeString)").font(.largeTitle).fontWeight(.medium).multilineTextAlignment(.center).padding(.top, 5).foregroundColor(.black)
+                                Divider().padding(.horizontal, 10)
+                                HStack {
+                                    Text("材料科学与工程学院")
+                                    Spacer()
+                                    Text("2020316101023")
+                                }.padding([.horizontal, .bottom]).foregroundColor(.black)
+                                Image("code").resizable().aspectRatio(contentMode: .fit).padding(.horizontal, 40)
+                                HStack {
+                                    Text("陈驰坤").foregroundColor(.black)
+                                    Button("刷新", action: {})
+                                }.padding(.bottom)
+                            }.frame(maxWidth: proxy.size.width)
+                                .background(Color.white)
+                                .clipShape(RoundedRectangle(cornerRadius: 16))
+                                .padding()
+                                .shadow(color: Color(.sRGBLinear, white: 0, opacity: 0.08), radius: 16)
+                                .onAppear {
+                                    let df = DateFormatter(); let tf = DateFormatter()
+                                    df.dateFormat = dateFormat; tf.dateFormat = timeFormat
+                                    
+                                    _ = Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { timer in
+                                        date = Date()
+                                        dateString = df.string(from: date)
+                                        timeString = tf.string(from: date)
+                                    }
+                                }
+                            
+                            // Bottom Info View
+                            HStack {
+                                VStack(alignment: .leading, spacing: 8) {
+                                    Text("2021-08-31 至 2022-01-15").foregroundColor(.black)
+                                    HStack {
+                                        Text(" 通行码类型：").foregroundColor(.gray)
+                                        Text("临时通行码").foregroundColor(.black)
+                                    }
+                                    HStack {
+                                        Text(" 剩余次数：").foregroundColor(.gray)
+                                        Text("10000").foregroundColor(.black)
+                                    }
+                                    HStack {
+                                        Text(" 第一次刷卡时间：").foregroundColor(.gray)
+                                        Text("").foregroundColor(.black)
+                                    }
+                                }
+                                Spacer()
+                            }.padding(.horizontal, 30)
+                            Spacer()
+                            HStack {
+                                Button("通行记录", action: {})
+                                Divider().frame(height: 20)
+                                Button("普通码", action: {})
+                            }.padding(.bottom, 20)
+                        }
+                    }
+                }.frame(width: proxy.size.width)
+            }.navigationBarTitleDisplayMode(.inline)
+                .toolbar {
+                    ToolbarItem(placement: .cancellationAction) {
+                        Button(action: { dismiss() }, label: { Label("", systemImage: "xmark").scaleEffect(0.8)}).foregroundColor(.primary)
+                    }
+                    ToolbarItem(placement: .principal) {
+                        Text("学生通行码")
+                    }
+                    ToolbarItem(placement: .confirmationAction) {
+                        Button(action: {}, label: { Label("", systemImage: "ellipsis").scaleEffect(0.8)}).foregroundColor(.primary)
+                    }
+                }
+                .ignoresSafeArea(.all, edges: .bottom)
+        }
+//        .overlay {
+//            Image("sample").resizable().edgesIgnoringSafeArea(.all).opacity(0.25)
+//        }
+    }
+    
+    var modify: some View {
+        Text("1")
+    }
+    
+    var body: some View {
+        NavigationView {
+            GeometryReader { proxy in
+                ScrollView {
+                    ZStack {
+                        // Background
+                        VStack(spacing: 0) {
+                            Rectangle().frame(height: proxy.size.height / 5).foregroundColor(.blue)
+                            Rectangle().frame(height: 4 * proxy.size.height / 5).foregroundColor(.init(white: 0.9648))
+                        }
+                        
+                        // Contents
+                        VStack(spacing: 0) {
+                            // Card View
+                            VStack(spacing: 5) {
+                                Text("\(dateString)\n\(timeString)").font(.largeTitle).fontWeight(.medium).multilineTextAlignment(.center).padding(.top, 5).foregroundColor(.black)
+                                Divider().padding(.horizontal, 10)
+                                HStack {
+                                    Text("材料科学与工程学院")
+                                    Spacer()
+                                    Text("2020316101023")
+                                }.padding([.horizontal, .bottom]).foregroundColor(.black)
+                                Image(uiImage: try! QRCode(string: qrcodeString, color: .init(red: 60/255, green: 112/255, blue: 236/255, alpha: 1), size: .init(width: 1024, height: 1024))!.image())
+                                    .resizable().aspectRatio(contentMode: .fit).padding(.horizontal, 40)
+                                HStack {
+                                    Text("陈驰坤").foregroundColor(.black)
+                                    Button("刷新") {
+                                        qrcodeRandomInt = Int.random(in: 100000...999999)
+                                    }
+                                }.padding(.bottom)
+                            }.frame(maxWidth: proxy.size.width)
+                                .background(Color.white)
+                                .clipShape(RoundedRectangle(cornerRadius: 16))
+                                .padding()
+                                .shadow(color: Color(.sRGBLinear, white: 0, opacity: 0.08), radius: 16)
+                                .onAppear {
+                                    let df = DateFormatter(); let tf = DateFormatter()
+                                    df.dateFormat = dateFormat; tf.dateFormat = timeFormat
+                                
+                                    RunLoop.main.add(Timer.scheduledTimer(withTimeInterval: 1, repeats: true) { timer in
+                                        date = Date()
+                                        dateString = df.string(from: date)
+                                        timeString = tf.string(from: date)
+                                    }, forMode: RunLoop.Mode.common)
+                                }
+                            
+                            // Bottom Info View
+                            HStack {
+                                VStack(alignment: .leading, spacing: 8) {
+                                    Text("2021-08-31 至 2022-01-15").foregroundColor(.black)
+                                    HStack {
+                                        Text(" 通行码类型：").foregroundColor(.gray)
+                                        Text("临时通行码").foregroundColor(.black)
+                                    }
+                                    HStack {
+                                        Text(" 剩余次数：").foregroundColor(.gray)
+                                        Text("10000").foregroundColor(.black)
+                                    }
+                                    HStack {
+                                        Text(" 第一次刷卡时间：").foregroundColor(.gray)
+                                        Text("").foregroundColor(.black)
+                                    }
+                                }
+                                Spacer()
+                            }.padding(.horizontal, 30)
+                            Spacer()
+                            HStack {
+                                Button("通行记录", action: {})
+                                Divider().frame(height: 20)
+                                Button("普通码", action: {})
+                            }.padding(.bottom, 20)
+                        }
+                    }
+                }.frame(width: proxy.size.width)
+            }.navigationBarTitleDisplayMode(.inline)
+                .toolbar {
+                    ToolbarItem(placement: .cancellationAction) {
+                        Button(action: { dismiss() }, label: { Label("", systemImage: "xmark").scaleEffect(0.8)}).foregroundColor(.primary)
+                    }
+                    ToolbarItem(placement: .principal) {
+                        Text("学生通行码")
+                    }
+                    ToolbarItem(placement: .confirmationAction) {
+                        Button(action: {}, label: { Label("", systemImage: "ellipsis").scaleEffect(0.8)}).foregroundColor(.primary)
+                    }
+                }
+                .ignoresSafeArea(.all, edges: .bottom)
+        }
+//        .overlay {
+//            Image("sample").resizable().edgesIgnoringSafeArea(.all).opacity(0.25)
+//        }
+    }
+}
+
+struct QRCodeView_Previews: PreviewProvider {
+    static var previews: some View {
+        QRCodeView()
+        QRCodeView()
+    }
+}

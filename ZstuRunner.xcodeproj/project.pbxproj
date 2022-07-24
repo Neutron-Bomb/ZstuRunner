@@ -7,9 +7,22 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		91405900287372E300D25870 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 914058FF287372E300D25870 /* WidgetKit.framework */; };
+		91405902287372E300D25870 /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 91405901287372E300D25870 /* SwiftUI.framework */; };
+		91405905287372E300D25870 /* ZstuRunnerWidget.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91405904287372E300D25870 /* ZstuRunnerWidget.swift */; };
+		91405908287372E500D25870 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 91405907287372E500D25870 /* Assets.xcassets */; };
+		9140590A287372E500D25870 /* ZstuRunnerWidget.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = 91405906287372E300D25870 /* ZstuRunnerWidget.intentdefinition */; };
+		9140590B287372E500D25870 /* ZstuRunnerWidget.intentdefinition in Sources */ = {isa = PBXBuildFile; fileRef = 91405906287372E300D25870 /* ZstuRunnerWidget.intentdefinition */; };
+		9140590E287372E500D25870 /* ZstuRunnerWidgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = 914058FD287372E300D25870 /* ZstuRunnerWidgetExtension.appex */; platformFilter = ios; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
+		917C4DCE288CFEB4003326FA /* QRCode in Frameworks */ = {isa = PBXBuildFile; productRef = 917C4DCD288CFEB4003326FA /* QRCode */; };
 		91833B44285790BB008C0E65 /* TechRunnerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91833B43285790BB008C0E65 /* TechRunnerView.swift */; };
-		91833B462857A06E008C0E65 /* Launch Screen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 91833B452857A06E008C0E65 /* Launch Screen.storyboard */; };
+		9184D6542879014C00DF9A67 /* RunnerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9184D6532879014C00DF9A67 /* RunnerView.swift */; };
 		91A068C02857742D00F3FBF0 /* Gzip in Frameworks */ = {isa = PBXBuildFile; productRef = 91A068BF2857742D00F3FBF0 /* Gzip */; };
+		91B1E89D28735292002CE67B /* QRCodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91B1E89C28735292002CE67B /* QRCodeView.swift */; };
+		91B1E8A128735946002CE67B /* sample.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = 91B1E8A028735946002CE67B /* sample.jpeg */; };
+		91D6B819286C7266006A1789 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91D6B818286C7266006A1789 /* LocationManager.swift */; };
+		91DC4111287483670042C255 /* DashboardPanelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91DC4110287483670042C255 /* DashboardPanelView.swift */; };
+		91DC4113287483F10042C255 /* DataUpload.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91DC4112287483F10042C255 /* DataUpload.swift */; };
 		91E874BE2857AA2200C7AB7B /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 91E874BC2857AA2200C7AB7B /* Localizable.strings */; };
 		91E874C12857AA3400C7AB7B /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 91E874BF2857AA3400C7AB7B /* Localizable.strings */; };
 		91F9929628575F3600745F77 /* ZstuRunnerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91F9929528575F3600745F77 /* ZstuRunnerApp.swift */; };
@@ -22,6 +35,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		9140590C287372E500D25870 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 91F9928A28575F3600745F77 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 914058FC287372E300D25870;
+			remoteInfo = ZstuRunnerWidgetExtension;
+		};
 		91F992A328575F3800745F77 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 91F9928A28575F3600745F77 /* Project object */;
@@ -38,9 +58,38 @@
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		9140590F287372E500D25870 /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				9140590E287372E500D25870 /* ZstuRunnerWidgetExtension.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
+		914058FD287372E300D25870 /* ZstuRunnerWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = ZstuRunnerWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		914058FF287372E300D25870 /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
+		91405901287372E300D25870 /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
+		91405904287372E300D25870 /* ZstuRunnerWidget.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZstuRunnerWidget.swift; sourceTree = "<group>"; };
+		91405906287372E300D25870 /* ZstuRunnerWidget.intentdefinition */ = {isa = PBXFileReference; lastKnownFileType = file.intentdefinition; path = ZstuRunnerWidget.intentdefinition; sourceTree = "<group>"; };
+		91405907287372E500D25870 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		91405909287372E500D25870 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		9140591328737D5E00D25870 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		9140AC55287D1073000B90B8 /* ZstuRunner.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ZstuRunner.entitlements; sourceTree = "<group>"; };
+		9140AC56287D1073000B90B8 /* ZstuRunnerWidgetExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ZstuRunnerWidgetExtension.entitlements; sourceTree = "<group>"; };
 		91833B43285790BB008C0E65 /* TechRunnerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TechRunnerView.swift; sourceTree = "<group>"; };
-		91833B452857A06E008C0E65 /* Launch Screen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = "Launch Screen.storyboard"; sourceTree = "<group>"; };
+		9184D6532879014C00DF9A67 /* RunnerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RunnerView.swift; sourceTree = "<group>"; };
+		91B1E89C28735292002CE67B /* QRCodeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRCodeView.swift; sourceTree = "<group>"; };
+		91B1E8A028735946002CE67B /* sample.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = sample.jpeg; sourceTree = "<group>"; };
+		91D6B818286C7266006A1789 /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
+		91DC4110287483670042C255 /* DashboardPanelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardPanelView.swift; sourceTree = "<group>"; };
+		91DC4112287483F10042C255 /* DataUpload.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataUpload.swift; sourceTree = "<group>"; };
 		91E874BD2857AA2200C7AB7B /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = Localizable.strings; sourceTree = "<group>"; };
 		91E874C02857AA3400C7AB7B /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = Localizable.strings; sourceTree = "<group>"; };
 		91F9929228575F3600745F77 /* ZstuRunner.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ZstuRunner.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -56,10 +105,20 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		914058FA287372E300D25870 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				91405902287372E300D25870 /* SwiftUI.framework in Frameworks */,
+				91405900287372E300D25870 /* WidgetKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		91F9928F28575F3600745F77 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				917C4DCE288CFEB4003326FA /* QRCode in Frameworks */,
 				91A068C02857742D00F3FBF0 /* Gzip in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -81,6 +140,26 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		914058FE287372E300D25870 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				914058FF287372E300D25870 /* WidgetKit.framework */,
+				91405901287372E300D25870 /* SwiftUI.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		91405903287372E300D25870 /* ZstuRunnerWidget */ = {
+			isa = PBXGroup;
+			children = (
+				91405904287372E300D25870 /* ZstuRunnerWidget.swift */,
+				91405906287372E300D25870 /* ZstuRunnerWidget.intentdefinition */,
+				91405907287372E500D25870 /* Assets.xcassets */,
+				91405909287372E500D25870 /* Info.plist */,
+			);
+			path = ZstuRunnerWidget;
+			sourceTree = "<group>";
+		};
 		91E874B92857A9A800C7AB7B /* en.lproj */ = {
 			isa = PBXGroup;
 			children = (
@@ -100,12 +179,14 @@
 		91F9928928575F3600745F77 = {
 			isa = PBXGroup;
 			children = (
+				9140AC56287D1073000B90B8 /* ZstuRunnerWidgetExtension.entitlements */,
 				91E874B92857A9A800C7AB7B /* en.lproj */,
 				91E874BB2857A9CF00C7AB7B /* zh-Hans.lproj */,
-				91833B452857A06E008C0E65 /* Launch Screen.storyboard */,
 				91F9929428575F3600745F77 /* ZstuRunner */,
 				91F992A528575F3800745F77 /* ZstuRunnerTests */,
 				91F992AF28575F3800745F77 /* ZstuRunnerUITests */,
+				91405903287372E300D25870 /* ZstuRunnerWidget */,
+				914058FE287372E300D25870 /* Frameworks */,
 				91F9929328575F3600745F77 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -116,6 +197,7 @@
 				91F9929228575F3600745F77 /* ZstuRunner.app */,
 				91F992A228575F3800745F77 /* ZstuRunnerTests.xctest */,
 				91F992AC28575F3800745F77 /* ZstuRunnerUITests.xctest */,
+				914058FD287372E300D25870 /* ZstuRunnerWidgetExtension.appex */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -123,9 +205,17 @@
 		91F9929428575F3600745F77 /* ZstuRunner */ = {
 			isa = PBXGroup;
 			children = (
+				9140AC55287D1073000B90B8 /* ZstuRunner.entitlements */,
+				9140591328737D5E00D25870 /* Info.plist */,
 				91F9929528575F3600745F77 /* ZstuRunnerApp.swift */,
 				91F9929728575F3600745F77 /* ContentView.swift */,
+				91DC4110287483670042C255 /* DashboardPanelView.swift */,
+				91B1E89C28735292002CE67B /* QRCodeView.swift */,
+				91B1E8A028735946002CE67B /* sample.jpeg */,
+				91D6B818286C7266006A1789 /* LocationManager.swift */,
 				91833B43285790BB008C0E65 /* TechRunnerView.swift */,
+				9184D6532879014C00DF9A67 /* RunnerView.swift */,
+				91DC4112287483F10042C255 /* DataUpload.swift */,
 				91F9929928575F3700745F77 /* Assets.xcassets */,
 				91F9929B28575F3700745F77 /* Preview Content */,
 			);
@@ -160,6 +250,23 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		914058FC287372E300D25870 /* ZstuRunnerWidgetExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 91405912287372E500D25870 /* Build configuration list for PBXNativeTarget "ZstuRunnerWidgetExtension" */;
+			buildPhases = (
+				914058F9287372E300D25870 /* Sources */,
+				914058FA287372E300D25870 /* Frameworks */,
+				914058FB287372E300D25870 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = ZstuRunnerWidgetExtension;
+			productName = ZstuRunnerWidgetExtension;
+			productReference = 914058FD287372E300D25870 /* ZstuRunnerWidgetExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 		91F9929128575F3600745F77 /* ZstuRunner */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 91F992B628575F3800745F77 /* Build configuration list for PBXNativeTarget "ZstuRunner" */;
@@ -167,14 +274,17 @@
 				91F9928E28575F3600745F77 /* Sources */,
 				91F9928F28575F3600745F77 /* Frameworks */,
 				91F9929028575F3600745F77 /* Resources */,
+				9140590F287372E500D25870 /* Embed Foundation Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				9140590D287372E500D25870 /* PBXTargetDependency */,
 			);
 			name = ZstuRunner;
 			packageProductDependencies = (
 				91A068BF2857742D00F3FBF0 /* Gzip */,
+				917C4DCD288CFEB4003326FA /* QRCode */,
 			);
 			productName = ZstuRunner;
 			productReference = 91F9929228575F3600745F77 /* ZstuRunner.app */;
@@ -226,6 +336,9 @@
 				LastSwiftUpdateCheck = 1400;
 				LastUpgradeCheck = 1400;
 				TargetAttributes = {
+					914058FC287372E300D25870 = {
+						CreatedOnToolsVersion = 14.0;
+					};
 					91F9929128575F3600745F77 = {
 						CreatedOnToolsVersion = 14.0;
 					};
@@ -245,18 +358,20 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
-				Base,
 				"zh-Hans",
+				Base,
 			);
 			mainGroup = 91F9928928575F3600745F77;
 			packageReferences = (
 				91A068BE2857742D00F3FBF0 /* XCRemoteSwiftPackageReference "GzipSwift" */,
+				917C4DCC288CFEB4003326FA /* XCRemoteSwiftPackageReference "QRCode" */,
 			);
 			productRefGroup = 91F9929328575F3600745F77 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
 				91F9929128575F3600745F77 /* ZstuRunner */,
+				914058FC287372E300D25870 /* ZstuRunnerWidgetExtension */,
 				91F992A128575F3800745F77 /* ZstuRunnerTests */,
 				91F992AB28575F3800745F77 /* ZstuRunnerUITests */,
 			);
@@ -264,12 +379,20 @@
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		914058FB287372E300D25870 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				91405908287372E500D25870 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		91F9929028575F3600745F77 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				91B1E8A128735946002CE67B /* sample.jpeg in Resources */,
 				91E874C12857AA3400C7AB7B /* Localizable.strings in Resources */,
-				91833B462857A06E008C0E65 /* Launch Screen.storyboard in Resources */,
 				91E874BE2857AA2200C7AB7B /* Localizable.strings in Resources */,
 				91F9929D28575F3700745F77 /* Preview Assets.xcassets in Resources */,
 				91F9929A28575F3700745F77 /* Assets.xcassets in Resources */,
@@ -293,13 +416,28 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		914058F9287372E300D25870 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				9140590A287372E500D25870 /* ZstuRunnerWidget.intentdefinition in Sources */,
+				91405905287372E300D25870 /* ZstuRunnerWidget.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		91F9928E28575F3600745F77 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				91D6B819286C7266006A1789 /* LocationManager.swift in Sources */,
+				91DC4111287483670042C255 /* DashboardPanelView.swift in Sources */,
+				91DC4113287483F10042C255 /* DataUpload.swift in Sources */,
 				91F9929828575F3600745F77 /* ContentView.swift in Sources */,
+				91B1E89D28735292002CE67B /* QRCodeView.swift in Sources */,
 				91F9929628575F3600745F77 /* ZstuRunnerApp.swift in Sources */,
+				9140590B287372E500D25870 /* ZstuRunnerWidget.intentdefinition in Sources */,
 				91833B44285790BB008C0E65 /* TechRunnerView.swift in Sources */,
+				9184D6542879014C00DF9A67 /* RunnerView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -323,6 +461,12 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		9140590D287372E500D25870 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			platformFilter = ios;
+			target = 914058FC287372E300D25870 /* ZstuRunnerWidgetExtension */;
+			targetProxy = 9140590C287372E500D25870 /* PBXContainerItemProxy */;
+		};
 		91F992A428575F3800745F77 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 91F9929128575F3600745F77 /* ZstuRunner */;
@@ -355,6 +499,70 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		91405910287372E500D25870 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_ENTITLEMENTS = ZstuRunnerWidgetExtension.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 24Q962SK3B;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = ZstuRunnerWidget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = ZstuRunnerWidget;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.haren724.ZstuRunner.ZstuRunnerWidget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SKIP_INSTALL = YES;
+				SUPPORTS_MACCATALYST = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		91405911287372E500D25870 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_ENTITLEMENTS = ZstuRunnerWidgetExtension.entitlements;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 24Q962SK3B;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = ZstuRunnerWidget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = ZstuRunnerWidget;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.haren724.ZstuRunner.ZstuRunnerWidget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SKIP_INSTALL = YES;
+				SUPPORTS_MACCATALYST = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 		91F992B428575F3800745F77 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -405,7 +613,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -459,7 +667,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -472,21 +680,27 @@
 		91F992B728575F3800745F77 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = ZstuRunner/ZstuRunner.entitlements;
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"ZstuRunner/Preview Content\"";
 				DEVELOPMENT_TEAM = 24Q962SK3B;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = ZstuRunner/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.healthcare-fitness";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = Hello;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UILaunchStoryboardName = "Launch Screen.storyboard";
+				INFOPLIST_KEY_UILaunchStoryboardName = "";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortraitUpsideDown";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -495,32 +709,38 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.haren724.ZstuRunner;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
-				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MACCATALYST = YES;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 1;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
 		};
 		91F992B828575F3800745F77 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = ZstuRunner/ZstuRunner.entitlements;
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"ZstuRunner/Preview Content\"";
 				DEVELOPMENT_TEAM = 24Q962SK3B;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = ZstuRunner/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.healthcare-fitness";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = Hello;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
-				INFOPLIST_KEY_UILaunchStoryboardName = "Launch Screen.storyboard";
+				INFOPLIST_KEY_UILaunchStoryboardName = "";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortraitUpsideDown";
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -529,11 +749,11 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.haren724.ZstuRunner;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
-				SUPPORTS_MACCATALYST = NO;
+				SUPPORTS_MACCATALYST = YES;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = 1;
+				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
 		};
@@ -616,6 +836,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		91405912287372E500D25870 /* Build configuration list for PBXNativeTarget "ZstuRunnerWidgetExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				91405910287372E500D25870 /* Debug */,
+				91405911287372E500D25870 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		91F9928D28575F3600745F77 /* Build configuration list for PBXProject "ZstuRunner" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
@@ -655,6 +884,14 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
+		917C4DCC288CFEB4003326FA /* XCRemoteSwiftPackageReference "QRCode" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/dmrschmidt/QRCode";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.0.0;
+			};
+		};
 		91A068BE2857742D00F3FBF0 /* XCRemoteSwiftPackageReference "GzipSwift" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/1024jp/GzipSwift.git";
@@ -666,6 +903,11 @@
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
+		917C4DCD288CFEB4003326FA /* QRCode */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 917C4DCC288CFEB4003326FA /* XCRemoteSwiftPackageReference "QRCode" */;
+			productName = QRCode;
+		};
 		91A068BF2857742D00F3FBF0 /* Gzip */ = {
 			isa = XCSwiftPackageProductDependency;
 			package = 91A068BE2857742D00F3FBF0 /* XCRemoteSwiftPackageReference "GzipSwift" */;

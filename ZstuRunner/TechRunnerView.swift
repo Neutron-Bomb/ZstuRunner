@@ -1,5 +1,5 @@
 //
-//  TechRunnerVIew.swift
+//  TechRunnerView.swift
 //  ZstuRunner
 //
 //  Created by 陈驰坤 on 2022/6/13.
@@ -13,7 +13,7 @@ import Gzip
 
 struct TechRunnerView: View {
     
-    @ObservedObject var secretForwarding = SecretForwarding(mode: .zstu)
+    @ObservedObject var settings = Settings(mode: .zstu)
     
     @State var showPref = false
     @State var stuID = UserDefaults.standard.string(forKey: "stuID") ?? ""
@@ -35,22 +35,22 @@ struct TechRunnerView: View {
     #endif
     
     // Dashboard Views
-    var dashboard_ipados: some View {
-        List {
-            Text("It works!")
-        }.navigationTitle("Dashboard")
-    }
-    var dashboard_ios: some View {
-        NavigationView {
-            dashboard_ipados
-                .toolbar(content: { Button(action: { showPref.toggle() }, label: { Image(systemName: "gear") }) })
-        }.sheet(isPresented: $showPref, onDismiss: {
-            if stuID.count != 13 || Int(stuID) == nil {
-                isWrongID = true
-            }
-        }, content: { preference })
-        
-    }
+//    var dashboard_ipados: some View {
+//        List {
+//            Text("It works!")
+//        }.navigationTitle("Dashboard")
+//    }
+//    var dashboard_ios: some View {
+//        NavigationView {
+//            dashboard_ipados
+//                .toolbar(content: { Button(action: { showPref.toggle() }, label: { Image(systemName: "gear") }) })
+//        }.sheet(isPresented: $showPref, onDismiss: {
+//            if stuID.count != 13 || Int(stuID) == nil {
+//                isWrongID = true
+//            }
+//        }, content: { preference })
+//
+//    }
 
     // Upload Views
     var upload_ipados: some View {
@@ -181,13 +181,13 @@ struct TechRunnerView: View {
             switch systemName {
             case "iOS":
                 TabView {
-                    dashboard_ios.tabItem { Label("Dashboard", systemImage: "speedometer") }
+                    ContentView().overview.tabItem { Label("Dashboard", systemImage: "speedometer") }
                     upload_ios.tabItem { Label("Upload", systemImage: "icloud.and.arrow.up") }
                 }
             case "iPadOS":
                 NavigationView {
                     Form {
-                        NavigationLink(destination: dashboard_ipados, label: { Label("DashBoard", systemImage: "speedometer") })
+                        NavigationLink(destination: ContentView(isLogged: true).overview, label: { Label("DashBoard", systemImage: "speedometer") })
                         NavigationLink(destination: upload_ipados, label: { Label("Upload", systemImage: "icloud.and.arrow.up") })
                     }.navigationTitle("TechRunner")
                         .toolbar(content: { Button(action: { showPref.toggle() }, label: { Image(systemName: "gear") }) })
@@ -202,7 +202,7 @@ struct TechRunnerView: View {
                 Text("You're running TechRunner on a Unknown platform.\n Please try on iPhone or iPad!")
             }
             VStack {
-                Button("Switch back") { secretForwarding.mode = .zstu }.buttonStyle(.bordered).buttonBorderShape(.capsule)
+                Button("Switch back") { settings.mode = .zstu }.buttonStyle(.bordered).buttonBorderShape(.capsule)
                 Spacer()
             }
         }
