@@ -42,10 +42,18 @@ struct SimpleEntry: TimelineEntry {
 
 struct ZstuRunnerWidgetEntryView : View {
     var entry: Provider.Entry
-
     var body: some View {
 //        Text(entry.date, style: .time)
-        Text(LocalizedStringKey("SHOW_QR_CODE")).foregroundColor(.accentColor)
+        VStack {
+            HStack {
+                Image(systemName: "qrcode").resizable().aspectRatio(contentMode: .fit).foregroundColor(.secondary)
+                Text("Haren").bold().font(.title2)
+            }
+            Spacer()
+            Text(LocalizedStringKey("显示校园码")).foregroundColor(.accentColor)
+        }
+        .padding()
+        .widgetURL(URL(string: "okay")!)
     }
 }
 
@@ -57,8 +65,8 @@ struct ZstuRunnerWidget: Widget {
         IntentConfiguration(kind: kind, intent: ConfigurationIntent.self, provider: Provider()) { entry in
             ZstuRunnerWidgetEntryView(entry: entry)
         }
-        .configurationDisplayName("My Widget")
-        .description("This is an example widget.")
+        .configurationDisplayName("校园码快捷展示")
+        .description("快速展示微信校园码")
     }
 }
 

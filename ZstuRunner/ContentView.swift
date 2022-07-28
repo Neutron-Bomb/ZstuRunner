@@ -334,26 +334,11 @@ struct ContentView: View {
                 overview.tabItem { Label("OVERVIEW", systemImage: "speedometer")}.tag(0)
                 run.tabItem { Label("_RUN", systemImage: "figure.run") }.tag(1).badge("Go!")
                 my.tabItem { Label("My", systemImage: "person.fill") }.tag(2)
-            }
+            }.onOpenURL(perform: {url in
+                self.selectedTab = 2
+                self.moreApps = url == URL(string: "okay")!
+            })
         }
-    }
-}
-
-
-struct PageViewController<Page: View>: UIViewControllerRepresentable {
-    var pages: [Page]
-    
-    func makeUIViewController(context: Context) -> UIPageViewController {
-        let pageViewController = UIPageViewController(
-            transitionStyle: .scroll,
-            navigationOrientation: .horizontal)
-        
-        return pageViewController
-    }
-    
-    func updateUIViewController(_ pageViewController: UIPageViewController, context: Context) {
-            pageViewController.setViewControllers(
-                [UIHostingController(rootView: pages[0])], direction: .forward, animated: true)
     }
 }
 

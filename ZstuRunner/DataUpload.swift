@@ -29,6 +29,7 @@ func overviewRefresh(_ stuID: String) -> Double {
         }
         if let mimeType = response.mimeType, mimeType == "application/json", let data = data, let dataString = String(data: data, encoding: .utf8) {
             print("got data: \(dataString)")
+            
             let decoder = try! JSONDecoder().decode(RunData.self, from: data)
             if let areaIndex = decoder.m.firstIndex(of: "动") {
                 area = Double(decoder.m[decoder.m.index(areaIndex, offsetBy: 2) ..< (decoder.m.lastIndex(of: "公") ?? decoder.m.endIndex)]) ?? 0

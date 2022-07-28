@@ -1,7 +1,9 @@
 /* 
-  Localizable.strings
+  InfoPlist.strings
   ZstuRunner
 
   Created by 陈驰坤 on 2022/7/28.
   
 */
+
+CFBundleDisplayName = "浙理体育";
