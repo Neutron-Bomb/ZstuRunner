@@ -40,7 +40,8 @@ struct SimpleEntry: TimelineEntry {
     let configuration: ConfigurationIntent
 }
 
-struct ZstuRunnerWidgetEntryView : View {
+// MARK: - QRCode Widget
+struct QRCodeWidgetEntryView : View {
     var entry: Provider.Entry
     var body: some View {
 //        Text(entry.date, style: .time)
@@ -57,22 +58,76 @@ struct ZstuRunnerWidgetEntryView : View {
     }
 }
 
-@main
-struct ZstuRunnerWidget: Widget {
-    let kind: String = "ZstuRunnerWidget"
 
+struct QRCodeWidget: Widget {
+    let kind: String = "QRCode Widget"
     var body: some WidgetConfiguration {
         IntentConfiguration(kind: kind, intent: ConfigurationIntent.self, provider: Provider()) { entry in
-            ZstuRunnerWidgetEntryView(entry: entry)
+            QRCodeWidgetEntryView(entry: entry)
         }
         .configurationDisplayName("校园码快捷展示")
         .description("快速展示微信校园码")
     }
 }
 
+// MARK: - SWAEService Widget
+struct SWAEServiceWidgetEntryView: View {
+    var entry: Provider.Entry
+    var body: some View {
+        HStack {
+            VStack {
+                HStack {
+                    Circle()
+                    VStack {
+                        Text("更新时间:").font(.footnote).bold()
+                        Text("2022-7-24")
+                    }
+                }
+                Divider()
+                Spacer()
+                HStack {
+                    Text("已用:").font(.footnote).bold()
+                    Text("3038度")
+                    Spacer()
+                    Divider().frame(height: 30)
+                    Spacer()
+                    Text("剩余:").font(.footnote).bold()
+                    Text("4.43度")
+                }
+            }.padding()
+        }.background(Color.mint)
+            .foregroundColor(.white)
+    }
+}
+
+struct SWAEServiceWidget: Widget {
+    let kind: String = "SWAEService Widget"
+    var body: some WidgetConfiguration {
+        IntentConfiguration(kind: kind, intent: ConfigurationIntent.self, provider: Provider()) { entry in
+            SWAEServiceWidgetEntryView(entry: entry)
+        }
+        .configurationDisplayName("寝室电费查询")
+        .description("寝室电费余额及使用情况一览")
+    }
+}
+
+// MARK: - Life Cycle
+@main
+struct ZstuRunnerWidgets: WidgetBundle {
+    @WidgetBundleBuilder
+    var body: some Widget {
+        QRCodeWidget()
+        SWAEServiceWidget()
+    }
+}
+
+
 struct ZstuRunnerWidget_Previews: PreviewProvider {
     static var previews: some View {
-        ZstuRunnerWidgetEntryView(entry: SimpleEntry(date: Date(), configuration: ConfigurationIntent()))
+        QRCodeWidgetEntryView(entry: SimpleEntry(date: Date(), configuration: ConfigurationIntent()))
+            .previewContext(WidgetPreviewContext(family: .systemSmall))
+            .environment(\.locale, .init(identifier: "zh-Hans"))
+        SWAEServiceWidgetEntryView(entry: SimpleEntry(date: Date(), configuration: ConfigurationIntent()))
             .previewContext(WidgetPreviewContext(family: .systemSmall))
             .environment(\.locale, .init(identifier: "zh-Hans"))
     }
