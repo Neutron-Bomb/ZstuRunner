@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		913777C628A2238A0075C29B /* MyPrefencesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 913777C528A2238A0075C29B /* MyPrefencesView.swift */; };
+		913777C828A260DE0075C29B /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 913777C728A260DE0075C29B /* LoginView.swift */; };
 		913873CF28926D6200084AF7 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 913873D128926D6200084AF7 /* Localizable.strings */; };
 		913873D728926DDC00084AF7 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 913873D928926DDC00084AF7 /* InfoPlist.strings */; };
 		91405900287372E300D25870 /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 914058FF287372E300D25870 /* WidgetKit.framework */; };
@@ -20,6 +22,7 @@
 		917C4DCE288CFEB4003326FA /* QRCode in Frameworks */ = {isa = PBXBuildFile; productRef = 917C4DCD288CFEB4003326FA /* QRCode */; };
 		91833B44285790BB008C0E65 /* TechRunnerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91833B43285790BB008C0E65 /* TechRunnerView.swift */; };
 		9184D6542879014C00DF9A67 /* RunnerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9184D6532879014C00DF9A67 /* RunnerView.swift */; };
+		9194FE01289C1B6000ED7518 /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9194FE00289C1B6000ED7518 /* Settings.swift */; };
 		91A068C02857742D00F3FBF0 /* Gzip in Frameworks */ = {isa = PBXBuildFile; productRef = 91A068BF2857742D00F3FBF0 /* Gzip */; };
 		91B1E89D28735292002CE67B /* QRCodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91B1E89C28735292002CE67B /* QRCodeView.swift */; };
 		91B1E8A128735946002CE67B /* sample.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = 91B1E8A028735946002CE67B /* sample.jpeg */; };
@@ -74,6 +77,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		913777C528A2238A0075C29B /* MyPrefencesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPrefencesView.swift; sourceTree = "<group>"; };
+		913777C728A260DE0075C29B /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		913873D028926D6200084AF7 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		913873D228926D6500084AF7 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
 		913873D828926DDC00084AF7 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -91,6 +96,7 @@
 		9155EBE2289175DC0005E88D /* ElecServiceView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ElecServiceView.swift; sourceTree = "<group>"; };
 		91833B43285790BB008C0E65 /* TechRunnerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TechRunnerView.swift; sourceTree = "<group>"; };
 		9184D6532879014C00DF9A67 /* RunnerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RunnerView.swift; sourceTree = "<group>"; };
+		9194FE00289C1B6000ED7518 /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		91B1E89C28735292002CE67B /* QRCodeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRCodeView.swift; sourceTree = "<group>"; };
 		91B1E8A028735946002CE67B /* sample.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = sample.jpeg; sourceTree = "<group>"; };
 		91D6B818286C7266006A1789 /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
@@ -144,6 +150,30 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		913777C928A260EF0075C29B /* Subviews */ = {
+			isa = PBXGroup;
+			children = (
+				91DC4110287483670042C255 /* DashboardPanelView.swift */,
+				9155EBE2289175DC0005E88D /* ElecServiceView.swift */,
+				913777C728A260DE0075C29B /* LoginView.swift */,
+				913777C528A2238A0075C29B /* MyPrefencesView.swift */,
+				91B1E89C28735292002CE67B /* QRCodeView.swift */,
+				9184D6532879014C00DF9A67 /* RunnerView.swift */,
+				91833B43285790BB008C0E65 /* TechRunnerView.swift */,
+			);
+			path = Subviews;
+			sourceTree = "<group>";
+		};
+		913777CA28A261260075C29B /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				9194FE00289C1B6000ED7518 /* Settings.swift */,
+				91D6B818286C7266006A1789 /* LocationManager.swift */,
+				91DC4112287483F10042C255 /* DataUpload.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
 		914058FE287372E300D25870 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -197,13 +227,8 @@
 				9140AC55287D1073000B90B8 /* ZstuRunner.entitlements */,
 				91F9929528575F3600745F77 /* ZstuRunnerApp.swift */,
 				91F9929728575F3600745F77 /* ContentView.swift */,
-				9184D6532879014C00DF9A67 /* RunnerView.swift */,
-				9155EBE2289175DC0005E88D /* ElecServiceView.swift */,
-				91DC4110287483670042C255 /* DashboardPanelView.swift */,
-				91B1E89C28735292002CE67B /* QRCodeView.swift */,
-				91D6B818286C7266006A1789 /* LocationManager.swift */,
-				91DC4112287483F10042C255 /* DataUpload.swift */,
-				91833B43285790BB008C0E65 /* TechRunnerView.swift */,
+				913777C928A260EF0075C29B /* Subviews */,
+				913777CA28A261260075C29B /* Services */,
 				91B1E8A028735946002CE67B /* sample.jpeg */,
 				91F9929928575F3700745F77 /* Assets.xcassets */,
 				91F9929B28575F3700745F77 /* Preview Content */,
@@ -426,7 +451,10 @@
 				91F9929628575F3600745F77 /* ZstuRunnerApp.swift in Sources */,
 				9140590B287372E500D25870 /* ZstuRunnerWidget.intentdefinition in Sources */,
 				9155EBE3289175DC0005E88D /* ElecServiceView.swift in Sources */,
+				913777C628A2238A0075C29B /* MyPrefencesView.swift in Sources */,
 				91833B44285790BB008C0E65 /* TechRunnerView.swift in Sources */,
+				913777C828A260DE0075C29B /* LoginView.swift in Sources */,
+				9194FE01289C1B6000ED7518 /* Settings.swift in Sources */,
 				9184D6542879014C00DF9A67 /* RunnerView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -690,9 +718,10 @@
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = "";
+				INFOPLIST_KEY_UIRequiresFullScreen = NO;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortraitUpsideDown";
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -730,9 +759,10 @@
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = "";
+				INFOPLIST_KEY_UIRequiresFullScreen = NO;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortraitUpsideDown";
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

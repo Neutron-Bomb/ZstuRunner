@@ -10,7 +10,8 @@ import QRCode
 
 struct QRCodeView: View {
     
-    @ObservedObject var settings = Settings(mode: .zstu)
+    @EnvironmentObject var settings: Settings
+    @Environment(\.colorScheme) var colorScheme
     
     var dateFormat = "MM月dd日"
     var timeFormat = "HH:mm:ss"
@@ -19,9 +20,6 @@ struct QRCodeView: View {
     @State var qrcodeRandomInt = 321820
     
     @State var date = Date()
-    
-    @State var stuID = ""
-    @State var name = ""
     
     @State var dateString = "00月00日"
     @State var timeString = "00:00:00"
@@ -54,6 +52,7 @@ struct QRCodeView: View {
                                         Text(college)
                                     } else {
                                         TextField("你的学院", text: $college)
+                                            .colorScheme(.light)
                                             .onSubmit {
                                                 UserDefaults.standard.set(college, forKey: "College")
                                             }
@@ -63,8 +62,9 @@ struct QRCodeView: View {
                                         Text("2020316101023")
                                     } else {
                                         TextField("你的学号", text: $settings.stuID)
+                                            .colorScheme(.light)
                                             .onSubmit {
-                                                UserDefaults.standard.set(settings.stuID, forKey: "stuID")
+                                                UserDefaults.standard.set($settings.stuID, forKey: "settings.stuID")
                                             }
                                     }
                                 }.padding([.horizontal, .bottom]).foregroundColor(.black)
@@ -134,7 +134,7 @@ struct QRCodeView: View {
                         Text("学生通行码")
                     }
                     ToolbarItem(placement: .confirmationAction) {
-                        Button(action: { isEditing.toggle() }, label: { Label("", systemImage: "ellipsis").scaleEffect(0.8)}).foregroundColor(.primary)
+                        Button(action: { /* isEditing.toggle() */ }, label: { Label("", systemImage: "ellipsis").scaleEffect(0.8)}).foregroundColor(.primary)
                     }
                 }
                 .ignoresSafeArea(.all, edges: .bottom)

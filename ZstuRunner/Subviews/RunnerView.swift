@@ -59,6 +59,14 @@ struct RunnerView: View {
         }
     }
     
+    var gradient: Gradient {
+        let stops: [Gradient.Stop] = [
+            .init(color: .accentColor.opacity(0), location: 0.6),
+            .init(color: .primary, location: 0.9)
+        ]
+        return Gradient(stops: stops)
+    }
+    
 //    struct Coordinate {
 //        let timeStamp: Double
 //        let latitude: Double
@@ -79,18 +87,20 @@ struct RunnerView: View {
     var control: some View {
         VStack {
             HStack {
-                if mapOpacity == 1 {
-                    Button(action: { pause() }) { Label("RUN_PAUSE", systemImage: "pause.circle")}.buttonStyle(.bordered).foregroundColor(.yellow)
-                } else {
-                    Button(action: { resume() }) { Label("RUN_RESUME", systemImage: "play.circle")}.buttonStyle(.bordered).foregroundColor(.green)
-                }
-                Spacer()
-                Button(action: { pause(); finishCheck.toggle() }) { Label("RUN_FINISH", systemImage: "stop.circle")}.buttonStyle(.bordered).foregroundColor(.red)
-                    .alert("RUN_FINISH_CHECK", isPresented: $finishCheck) {
-                        Button("RUN_FINISH_CHECK_CANCEL", role: .cancel, action: { resume() })
-                        Button("RUN_FINISH_CHECK_OK") { jumpToSummary = -1 }
+                Group {
+                    if mapOpacity == 1 {
+                        Button(action: { pause() }) { Label("RUN_PAUSE", systemImage: "pause.circle")}.buttonStyle(.bordered).foregroundColor(.yellow)
+                    } else {
+                        Button(action: { resume() }) { Label("RUN_RESUME", systemImage: "play.circle")}.buttonStyle(.bordered).foregroundColor(.green)
                     }
-            }
+                    Spacer()
+                    Button(action: { pause(); finishCheck.toggle() }) { Label("RUN_FINISH", systemImage: "stop.circle")}.buttonStyle(.bordered).foregroundColor(.red)
+                        .alert("RUN_FINISH_CHECK", isPresented: $finishCheck) {
+                            Button("RUN_FINISH_CHECK_CANCEL", role: .cancel, action: { resume() })
+                            Button("RUN_FINISH_CHECK_OK") { jumpToSummary = -1 }
+                        }
+                }.padding([.top, .bottom])
+            }.padding()
         }
     }
     
@@ -144,7 +154,7 @@ struct RunnerView: View {
     }
     
     var test: some View {
-        Text("?")
+        Text("正在施工中⚠️")
     }
     
     func setTimer() {
@@ -254,11 +264,16 @@ struct RunnerView: View {
                     .edgesIgnoringSafeArea([.top, .bottom])
                     .opacity(mapOpacity)
                     .overlay {
+                        LinearGradient(gradient: gradient, startPoint: .top, endPoint: .bottom)
+                            .edgesIgnoringSafeArea(.bottom)
+                            .colorInvert()
+                    }
+                    .overlay {
                         VStack {
                             Spacer()
                             TabView(selection: $selection) {
                                 Section {
-                                    control.tag(0)
+                                    control.tag(0).disabled(isReady ? false : true)
                                     overview.tag(1)
                                     test.tag(2)
                                 }.frame(maxWidth: .infinity, maxHeight: .infinity)
@@ -274,6 +289,7 @@ struct RunnerView: View {
                                 .frame(height: UIScreen.main.bounds.size.height / 2.8)
                         }.edgesIgnoringSafeArea([.top, .bottom])
                     }
+                    
                 NavigationLink("RUN_FINISH_CHECK_OK", tag: -1, selection: $jumpToSummary, destination: { summary.navigationBarBackButtonHidden() }).hidden()
             }.edgesIgnoringSafeArea([.top, .bottom])
                 .onAppear {
@@ -281,11 +297,11 @@ struct RunnerView: View {
                 }
         }
     }
-    
 }
 
 struct RunnerView_Previews: PreviewProvider {
     static var previews: some View {
         RunnerView()
+            .environment(\.locale, Locale(identifier: "zh_CN"))
     }
 }

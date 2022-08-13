@@ -187,7 +187,6 @@ struct TechRunnerView: View {
             case "iPadOS":
                 NavigationView {
                     Form {
-                        NavigationLink(destination: ContentView(isLogged: true).overview, label: { Label("DashBoard", systemImage: "speedometer") })
                         NavigationLink(destination: upload_ipados, label: { Label("Upload", systemImage: "icloud.and.arrow.up") })
                     }.navigationTitle("TechRunner")
                         .toolbar(content: { Button(action: { showPref.toggle() }, label: { Image(systemName: "gear") }) })

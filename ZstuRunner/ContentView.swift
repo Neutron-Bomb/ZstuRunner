@@ -5,30 +5,15 @@
 //  Created by 陈驰坤 on 2022/6/13.
 //
 
-import _MapKit_SwiftUI
 import CoreLocation
-import SwiftUI
-import WebKit
-import UIKit
 import Gzip
-
-class Settings: ObservableObject {
-    
-    init(mode: Mode) {
-        self.mode = mode
-    }
-    
-    enum Mode { case zstu, tech }
-    
-    @Published var mode: Mode
-    @Published var stuID: String = ""
-    @Published var manager = LocationManager()
-    @Published var tracking: MapUserTrackingMode = .follow
-}
+import SwiftUI
+import UIKit
+import WebKit
+import _MapKit_SwiftUI
 
 extension LocalizedStringKey {
 // imagine `self` is equal to LocalizedStringKey("KEY_HERE")
-
     var stringKey: String {
         let description = "\(self)"
         // in this example description will be `LocalizedStringKey(key: "KEY_HERE", hasFormatting: false, arguments: [])`
@@ -51,7 +36,7 @@ extension LocalizedStringKey {
 
 struct ContentView: View {
     
-    @ObservedObject var settings = Settings(mode: .zstu)
+    @EnvironmentObject var settings: Settings
     
     var columns: [GridItem] = Array(repeating: .init(.flexible()), count: 2)
     
@@ -66,6 +51,7 @@ struct ContentView: View {
     }
     
     @Environment(\.colorScheme) var colorScheme
+    @Environment(\.dismiss) var dismiss
     
 // MARK: - @State Properties
     @State var moreApps = false
@@ -74,10 +60,6 @@ struct ContentView: View {
     @State private var isRunning = false
     
     @State var selectedTab = 1
-    @State var isLogged = UserDefaults.standard.bool(forKey: "isLogged")
-    
-    @State var stuID = UserDefaults.standard.string(forKey: "stuID") ?? ""
-    @State private var password = UserDefaults.standard.string(forKey: "Password") ?? ""
     
     @State private var runMode: RunMode = .inArea
     
@@ -90,28 +72,24 @@ struct ContentView: View {
     @State var isstuIDEmpty = false
     @State var isLocationRequestDenied = false
     
-    @State var username = UserDefaults.standard.string(forKey: "Username") ?? LocalizedStringKey("_USERNAME").stringKey
-    
     // Overview
     @State var isRefreshing = false
     
 // MARK: - Overview
     var overview: some View {
-        NavigationView {
-            if isLogged {
-                List {
-                    Section("CURRENT_TERM_TOTAL_MILEAGE") {
-                        DashboardPanelView("TOTAL_MILEAGE", a: area_a + orientate_a, b: mileage_b, parameter: "km").padding()
-                        HStack {
-                            Text("ORIENTATE_DIST")
-                            Spacer()
-                            Text("\(String(format: "%.01f", orientate_a))km")
-                        }
-                        HStack {
-                            Text("AREA_DIST")
-                            Spacer()
-                            Text("\(String(format: "%.01f", area_a))km")
-                        }
+        List {
+            Section("CURRENT_TERM_TOTAL_MILEAGE") {
+                DashboardPanelView("TOTAL_MILEAGE", a: area_a + orientate_a, b: mileage_b, parameter: "km").padding()
+                HStack {
+                    Text("ORIENTATE_DIST")
+                    Spacer()
+                    Text("\(String(format: "%.01f", orientate_a))km")
+                }
+                HStack {
+                    Text("AREA_DIST")
+                    Spacer()
+                    Text("\(String(format: "%.01f", area_a))km")
+                }
 //                        这个是一个学期选择器，本来是用来查询每个学期的跑步情况（暂时弃用）
 //                        Picker("Term", selection: $term) {
 //                            Text("Freshman 1").tag(Term.freshman1)
@@ -123,47 +101,28 @@ struct ContentView: View {
 //                            Text("Senior 1").tag(Term.senior1)
 //                            Text("Senior 2").tag(Term.senior2)
 //                        }
-                    }
-                    Section {
-                        Button("_REFRESH") {
-                            if !stuID.isEmpty {
-                                isstuIDEmpty = false
+            }
+            Section {
+                Button("_REFRESH") {
+                    if !settings.stuID.isEmpty {
+                        isstuIDEmpty = false
 //                                { (_ tuple: (orientate: Double, area: Double)) in
 //                                    orientate_a = tuple.orientate
 //                                    area_a = tuple.area
-//                                }(overviewRefresh(stuID))
-                                print(overviewRefresh(stuID))
-                            } else {
-                                isstuIDEmpty = true
-                            }
-                        }.alert("ID_EMPTY", isPresented: $isstuIDEmpty) {
-                            Button("Dismiss", role: .cancel) {}
-                        }
+//                                }(overviewRefresh(settings.stuID))
+                        print(overviewRefresh(settings.stuID))
+                    } else {
+                        isstuIDEmpty = true
                     }
-                }.navigationTitle("OVERVIEW")
-            } else {
-                Button("_LOGIN", action: { selectedTab = 2 })
+                }.alert("ID_EMPTY", isPresented: $isstuIDEmpty) {
+                    Button("Dismiss", role: .cancel) {}
+                }
             }
         }
     }
     
 // MARK: - Run
     var run: some View {
-        NavigationView {
-            if isLogged {
-                if #available(iOS 16.0, *) {
-                    run_legacy.scrollDisabled(true)
-                } else {
-                    // Fallback on earlier versions
-                    run_legacy
-                }
-            } else {
-                Button("_LOGIN", action: { selectedTab = 2 })
-            }
-        }
-    }
-
-    var run_legacy: some View {
         List {
             Section("CONFIGURATION") {
                 Picker(selection: $runMode, label: Text("CHOOSE_RUN_MODE")) {
@@ -208,141 +167,101 @@ struct ContentView: View {
                         
                     }
             }
-        }.navigationTitle("_RUN")
+        }
     }
+
     
 // MARK: - My
     var my: some View {
-        NavigationView {
-            if isLogged {
-                List {
-                    NavigationLink(destination: {
-                        List  {
-                            Section {
-                                HStack {
-                                    Text("CHANGE_USERNAME")
-                                    Spacer()
-                                    TextField("", text: $username).multilineTextAlignment(.trailing)
-                                        .onSubmit {
-                                            UserDefaults.standard.set(username, forKey: "Username")
-                                        }
-                                }
-                            }
-                            Section {
-                                NavigationLink("CHANGE_PASSWORD", destination: { Password(.change).navigationBarTitleDisplayMode(.inline) })
-                                NavigationLink("FIND_PASSWORD", destination: {Password(.reset).navigationBarTitleDisplayMode(.inline) })
-                            }
-                            
-                            Section {
-                                Button("Logout", action: { isLogged.toggle() }).foregroundColor(.red)
-                            }
-                        }.navigationTitle("MY_SETTINGS")
-                    }, label: {
-                        HStack {
-                            Image("portrait")
-                                .resizable().aspectRatio(contentMode: .fit)
-                                .frame(height: 64).clipShape(Circle()).padding(.trailing)
-                            VStack(alignment: .leading) {
-                                Text("\(username)").font(.title2)
-                                Text(stuID).font(.footnote)
-                            }
-                        }
-                    })
+        List {
+            NavigationLink(destination: MyPrefencesView().onAppear { settings.isTabBarHidden = true }, label: {
+                HStack {
+                    Image("portrait")
+                        .resizable().aspectRatio(contentMode: .fit)
+                        .frame(height: 64).clipShape(Circle()).padding(.trailing)
+                    VStack(alignment: .leading) {
+                        Text(settings.username).font(.title2)
+                        Text(settings.stuID).font(.footnote)
+                    }
+                }
+            })
+            Section {
+                DisclosureGroup("CHECK_RUNNING_PLAN") {
                     Section {
-                        DisclosureGroup("CHECK_RUNNING_PLAN") {
+                        VStack(alignment: .leading) {
+                            Text("_BOY").bold().padding(.bottom, 1)
                             Section {
-                                VStack(alignment: .leading) {
-                                    Text("_BOY").bold().padding(.bottom, 1)
-                                    Section {
-                                        Text("BOY_MIN_DISTANCE")
-                                        Text("BOY_SPEED_RANGE")
-                                    }.padding(.leading)
-                                }
-                                VStack(alignment: .leading) {
-                                    Text("_GIRL").bold().padding(.bottom, 1)
-                                    Section {
-                                        Text("GIRL_MIN_DISTANCE")
-                                        Text("GIRL_SPEED_RANGE")
-                                    }.padding(.leading)
-                                }
-                            }.foregroundColor(.primary)
-                            
-                        }.accentColor(.init(white: colorScheme == .light ? 0.72 : 0.35))
-                    }
-                    Section {
-                        HStack {
-                            Text("VERSION")
-                            Spacer()
-                            Text(Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as! String)
-                                .foregroundColor(.secondary)
+                                Text("BOY_MIN_DISTANCE")
+                                Text("BOY_SPEED_RANGE")
+                            }.padding(.leading)
                         }
-                        HStack {
-                            Button("CHECK_UPDATE") { }
-                            Spacer()
-                            Text("_LATEST").foregroundColor(.secondary)
+                        VStack(alignment: .leading) {
+                            Text("_GIRL").bold().padding(.bottom, 1)
+                            Section {
+                                Text("GIRL_MIN_DISTANCE")
+                                Text("GIRL_SPEED_RANGE")
+                            }.padding(.leading)
                         }
-                        Button("MORE_APPS", action: { moreApps.toggle() }).fullScreenCover(isPresented: $moreApps, content: { QRCodeView() })
-                    }
-                }.navigationTitle("My")
-            } else {
-                // login menu
-                List {
-                    Section {
-                        HStack {
-                            Text("Student ID").frame(width: 60, alignment: .leading)
-                            TextField("your student ID", text: $stuID)
-                        }
-                        HStack {
-                            Text("Password").frame(width: 60, alignment: .leading)
-                            SecureField("your password", text: $password)
-                        }
-                    }
-                    Section {
-                        HStack {
-                            Spacer()
-                            NavigationLink("FIND_PASSWORD", destination: { Password(.reset).navigationBarTitleDisplayMode(.inline) }).opacity(0).overlay {
-                                HStack {
-                                    Spacer()
-                                    Text("FIND_PASSWORD").foregroundColor(.accentColor).font(.footnote)
-                                }
-                            }
-                        }.listRowBackground(EmptyView())
-                    }
-                    Button("_LOGIN") {
-                        if password == "techrunner" {
-                            settings.mode = .tech
-                            password = ""
-                        } else {
-                            isLogged.toggle()
-                        }
-                        UserDefaults.standard.set(stuID, forKey: "stuID")
-                        UserDefaults.standard.set(password, forKey: "Password")
-                        UserDefaults.standard.set(isLogged, forKey: "isLogged")
-                    }
-                }.navigationTitle("_LOGIN")
+                    }.foregroundColor(.primary)
+                    
+                }.accentColor(.init(white: colorScheme == .light ? 0.72 : 0.35))
             }
-            
+            Section {
+                HStack {
+                    Text("VERSION")
+                    Spacer()
+                    Text(Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as! String)
+                        .foregroundColor(.secondary)
+                }
+                HStack {
+                    Button("CHECK_UPDATE") { }
+                    Spacer()
+                    Text("_LATEST").foregroundColor(.secondary)
+                }
+//                        Button("MORE_APPS", action: { moreApps.toggle() }).fullScreenCover(isPresented: $moreApps, content: { QRCodeView() })
+                NavigationLink(destination: {
+                    Text("Hello")
+                        .onAppear { settings.isTabBarHidden = true }
+                }, label: { Text("MORE_APPS") })
+            }
         }
     }
-    
+
 // MARK: - Body
     var body: some View {
         if settings.mode == .tech {
             TechRunnerView(settings: settings)
         } else {
             TabView(selection: $selectedTab) {
-                overview.tabItem { Label("OVERVIEW", systemImage: "speedometer")}.tag(0)
-                run.tabItem { Label("_RUN", systemImage: "figure.run") }.tag(1).badge("Go!")
-                my.tabItem { Label("My", systemImage: "person.fill") }.tag(2)
-            }.onOpenURL(perform: {url in
+                Group {
+                    NavigationView {
+                        overview.navigationTitle("_OVERVIEW")
+                    }.tabItem { Label("_OVERVIEW", systemImage: "speedometer") }.tag(0)
+                    NavigationView {
+                        run.navigationTitle("_RUN")
+                    }.tabItem { Label("_RUN", systemImage: "figure.run") }.tag(1).badge("Go!")
+                    NavigationView {
+                        my.navigationTitle("_MY").onAppear { settings.isTabBarHidden = false }
+                    }.tabItem { Label("_MY", systemImage: "person.fill") }.tag(2)
+                }.toolbar(settings.isTabBarHidden ? .hidden : .visible, for: .tabBar)
+//                    if isLogged {
+//
+//                    } else {
+//                        login.tabItem { Label("_MY", systemImage: "person.fill") }.tag(2)
+//                    }
+            }.onOpenURL(perform: { url in
                 self.selectedTab = 2
                 self.moreApps = url == URL(string: "okay")!
             })
+            .fullScreenCover(isPresented: .init(get: { !settings.isLogged }, set: { _ in })) {
+                LoginView()
+            }
+            .fullScreenCover(isPresented: $moreApps) { QRCodeView() }
         }
     }
 }
 
-
+// MARK: - Other Structs
 struct Password: UIViewRepresentable {
     
     init(_ service: Service) {
@@ -360,7 +279,8 @@ struct Password: UIViewRepresentable {
     
     func updateUIView(_ uiView: WKWebView, context: Context) {
         uiView.callAsyncJavaScript("""
-    document.querySelector("body > app-stage > ion-app > ion-router-outlet > app-root > ion-router-outlet > app-retrieve-password > ion-header > ion-toolbar > ion-buttons");
+    var a = document.querySelector("body > app-stage > ion-app > ion-router-outlet > app-root > ion-router-outlet > app-retrieve-password > ion-header > ion-toolbar > ion-title");
+    a.style.display = "none"
     return 0;
 """, arguments: [:], in: nil, in: .page) { print("********\($0)********") }
         switch service {
@@ -371,7 +291,6 @@ struct Password: UIViewRepresentable {
         }
     }
 }
-
 
 struct RoundedCorners: View {
     var color: Color = .blue
@@ -408,12 +327,15 @@ struct RoundedCorners: View {
     }
 }
 
+// MARK: - Preview Provider
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView(selectedTab: 1, isLogged: true, stuID: "2020316101023")
+        ContentView(selectedTab: 1)
             .environment(\.locale, .init(identifier: "zh-Hans"))
-        ContentView(selectedTab: 2, isLogged: false, stuID: "2020316101023")
+            .environmentObject(Settings(stuID: "2020316101023", isLogged: true))
+        ContentView(selectedTab: 2)
             .environment(\.locale, .init(identifier: "zh-Hans"))
+            .environmentObject(Settings(stuID: "2020316101023", isLogged: false))
         RunnerView()
             .environment(\.locale, .init(identifier: "zh-Hans"))
     }

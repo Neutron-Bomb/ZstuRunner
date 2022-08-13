@@ -12,7 +12,7 @@
 "CURRENT_TERM_TOTAL_MILEAGE" = "本学期总里程";
 "TOTAL_MILEAGE" = "总里程";
 "_REFRESH" = "刷新";
-"OVERVIEW" = "一览";
+"_OVERVIEW" = "一览";
 "CONFIGURATION" = "选项";
 "CHOOSE_RUN_MODE" = "请选择跑步模式";
 "IN_AREA_MODE" = "区域内跑步";
@@ -33,12 +33,12 @@
 
 "CHECK_RUNNING_PLAN" = "查看跑步计划";
 "CHECK_UPDATE" = "检查更新";
-"MORE_APPS" = "打开更多应用";
+"MORE_APPS" = "更多应用";
 "VERSION" = "版本号";
 
 // 我的页面
 "_LATEST" = "已是最新";
-"My" = "我的";
+"_MY" = "我的";
 "Student ID" = "学号";
 "your student ID" = "你的学号";
 "Password" = "密码";
@@ -62,3 +62,24 @@
 "Senior 1" = "大四上";
 "Senior 2" = "大四下";
  */
+
+// 跑步页面
+"RUN_PAUSE" = "暂停";
+"RUN_RESUME" = "继续";
+"RUN_FINISH" = "结束";
+
+"RUN_FINISH_CHECK" = "确认要终止吗？";
+"RUN_FINISH_CHECK_CANCEL" = "我还要跑🏃";
+"RUN_CANCEL" = "取消";
+"RUN_FINISH_CHECK_OK" = "休息一下♨️";
+
+"RUN_TIME" = "用时";
+"RUN_DIST" = "里程";
+"RUN_SPEED_AVERAGE" = "平均配速";
+"RUN_SPEED_CURRENT" = "当前配速";
+
+
+"LOGIN_FAILED" = "登录失败";
+"LOGIN_RETRY" = "请检查学号和密码是否正确";
+
+

@@ -20,8 +20,6 @@ class LocationManager: NSObject, CLLocationManagerDelegate, ObservableObject {
     
     var coordinates = [CLLocation]()
     
-    //MARK: – Lifecycle
-    
     override init() {
         super.init()
         manager.delegate = self
@@ -47,4 +45,12 @@ class LocationManager: NSObject, CLLocationManagerDelegate, ObservableObject {
         }
         speed_average = distance / (coordinates.last!.timestamp.timeIntervalSince1970 -  coordinates[0].timestamp.timeIntervalSince1970)
     }
+}
+
+
+class testLocationManagerDelegate: NSObject, CLLocationManagerDelegate, ObservableObject {
+    
+    let manager = CLLocationManager()
+    
+    
 }

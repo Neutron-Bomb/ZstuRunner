@@ -1,2 +1,2 @@
 # ZstuRunner
-浙理体育iOS 全新重构
+浙理运动iOS 全新重构
