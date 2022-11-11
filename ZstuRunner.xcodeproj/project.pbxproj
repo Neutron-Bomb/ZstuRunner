@@ -7,6 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		911FCBAB28BA6FD80080A243 /* ZstuRunner_WatchApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 911FCBAA28BA6FD80080A243 /* ZstuRunner_WatchApp.swift */; };
+		911FCBAD28BA6FD80080A243 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 911FCBAC28BA6FD80080A243 /* ContentView.swift */; };
+		911FCBAF28BA6FD90080A243 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 911FCBAE28BA6FD90080A243 /* Assets.xcassets */; };
+		911FCBB228BA6FD90080A243 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 911FCBB128BA6FD90080A243 /* Preview Assets.xcassets */; };
+		911FCBBC28BA6FD90080A243 /* ZstuRunner_Watch_Watch_AppTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 911FCBBB28BA6FD90080A243 /* ZstuRunner_Watch_Watch_AppTests.swift */; };
+		911FCBC628BA6FDA0080A243 /* ZstuRunner_Watch_Watch_AppUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 911FCBC528BA6FDA0080A243 /* ZstuRunner_Watch_Watch_AppUITests.swift */; };
+		911FCBC828BA6FDA0080A243 /* ZstuRunner_Watch_Watch_AppUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 911FCBC728BA6FDA0080A243 /* ZstuRunner_Watch_Watch_AppUITestsLaunchTests.swift */; };
+		911FCBCB28BA6FDA0080A243 /* ZstuRunner-Watch Watch App.app in Embed Watch Content */ = {isa = PBXBuildFile; fileRef = 911FCBA828BA6FD70080A243 /* ZstuRunner-Watch Watch App.app */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 		913777C628A2238A0075C29B /* MyPrefencesView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 913777C528A2238A0075C29B /* MyPrefencesView.swift */; };
 		913777C828A260DE0075C29B /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 913777C728A260DE0075C29B /* LoginView.swift */; };
 		913873CF28926D6200084AF7 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 913873D128926D6200084AF7 /* Localizable.strings */; };
@@ -26,6 +34,8 @@
 		91A068C02857742D00F3FBF0 /* Gzip in Frameworks */ = {isa = PBXBuildFile; productRef = 91A068BF2857742D00F3FBF0 /* Gzip */; };
 		91B1E89D28735292002CE67B /* QRCodeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91B1E89C28735292002CE67B /* QRCodeView.swift */; };
 		91B1E8A128735946002CE67B /* sample.jpeg in Resources */ = {isa = PBXBuildFile; fileRef = 91B1E8A028735946002CE67B /* sample.jpeg */; };
+		91CD2624291EA5DA0013C09A /* DashboardViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91CD2623291EA5DA0013C09A /* DashboardViewModel.swift */; };
+		91CD2627291EA70C0013C09A /* DashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91CD2626291EA70C0013C09A /* DashboardView.swift */; };
 		91D6B819286C7266006A1789 /* LocationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91D6B818286C7266006A1789 /* LocationManager.swift */; };
 		91DC4111287483670042C255 /* DashboardPanelView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91DC4110287483670042C255 /* DashboardPanelView.swift */; };
 		91DC4113287483F10042C255 /* DataUpload.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91DC4112287483F10042C255 /* DataUpload.swift */; };
@@ -39,6 +49,27 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		911FCBB828BA6FD90080A243 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 91F9928A28575F3600745F77 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 911FCBA728BA6FD70080A243;
+			remoteInfo = "ZstuRunner-Watch Watch App";
+		};
+		911FCBC228BA6FDA0080A243 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 91F9928A28575F3600745F77 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 911FCBA728BA6FD70080A243;
+			remoteInfo = "ZstuRunner-Watch Watch App";
+		};
+		911FCBC928BA6FDA0080A243 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 91F9928A28575F3600745F77 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 911FCBA728BA6FD70080A243;
+			remoteInfo = "ZstuRunner-Watch Watch App";
+		};
 		9140590C287372E500D25870 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 91F9928A28575F3600745F77 /* Project object */;
@@ -63,6 +94,17 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
+		911FCBCC28BA6FDA0080A243 /* Embed Watch Content */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "$(CONTENTS_FOLDER_PATH)/Watch";
+			dstSubfolderSpec = 16;
+			files = (
+				911FCBCB28BA6FDA0080A243 /* ZstuRunner-Watch Watch App.app in Embed Watch Content */,
+			);
+			name = "Embed Watch Content";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		9140590F287372E500D25870 /* Embed Foundation Extensions */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -77,6 +119,17 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		9117985828E46D3B00ED1D0A /* ZstuRunner-Watch-Watch-App-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = "ZstuRunner-Watch-Watch-App-Info.plist"; sourceTree = SOURCE_ROOT; };
+		911FCBA828BA6FD70080A243 /* ZstuRunner-Watch Watch App.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "ZstuRunner-Watch Watch App.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		911FCBAA28BA6FD80080A243 /* ZstuRunner_WatchApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZstuRunner_WatchApp.swift; sourceTree = "<group>"; };
+		911FCBAC28BA6FD80080A243 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		911FCBAE28BA6FD90080A243 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		911FCBB128BA6FD90080A243 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		911FCBB728BA6FD90080A243 /* ZstuRunner-Watch Watch AppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "ZstuRunner-Watch Watch AppTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		911FCBBB28BA6FD90080A243 /* ZstuRunner_Watch_Watch_AppTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZstuRunner_Watch_Watch_AppTests.swift; sourceTree = "<group>"; };
+		911FCBC128BA6FD90080A243 /* ZstuRunner-Watch Watch AppUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "ZstuRunner-Watch Watch AppUITests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		911FCBC528BA6FDA0080A243 /* ZstuRunner_Watch_Watch_AppUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZstuRunner_Watch_Watch_AppUITests.swift; sourceTree = "<group>"; };
+		911FCBC728BA6FDA0080A243 /* ZstuRunner_Watch_Watch_AppUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ZstuRunner_Watch_Watch_AppUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		913777C528A2238A0075C29B /* MyPrefencesView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyPrefencesView.swift; sourceTree = "<group>"; };
 		913777C728A260DE0075C29B /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
 		913873D028926D6200084AF7 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -99,6 +152,8 @@
 		9194FE00289C1B6000ED7518 /* Settings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Settings.swift; sourceTree = "<group>"; };
 		91B1E89C28735292002CE67B /* QRCodeView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QRCodeView.swift; sourceTree = "<group>"; };
 		91B1E8A028735946002CE67B /* sample.jpeg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = sample.jpeg; sourceTree = "<group>"; };
+		91CD2623291EA5DA0013C09A /* DashboardViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardViewModel.swift; sourceTree = "<group>"; };
+		91CD2626291EA70C0013C09A /* DashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardView.swift; sourceTree = "<group>"; };
 		91D6B818286C7266006A1789 /* LocationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationManager.swift; sourceTree = "<group>"; };
 		91DC4110287483670042C255 /* DashboardPanelView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardPanelView.swift; sourceTree = "<group>"; };
 		91DC4112287483F10042C255 /* DataUpload.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataUpload.swift; sourceTree = "<group>"; };
@@ -115,6 +170,27 @@
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
+		911FCBA528BA6FD70080A243 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		911FCBB428BA6FD90080A243 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		911FCBBE28BA6FD90080A243 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		914058FA287372E300D25870 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -150,10 +226,47 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		913777C928A260EF0075C29B /* Subviews */ = {
+		911FCBA928BA6FD80080A243 /* ZstuRunner-Watch Watch App */ = {
 			isa = PBXGroup;
 			children = (
-				91DC4110287483670042C255 /* DashboardPanelView.swift */,
+				9117985828E46D3B00ED1D0A /* ZstuRunner-Watch-Watch-App-Info.plist */,
+				911FCBAA28BA6FD80080A243 /* ZstuRunner_WatchApp.swift */,
+				911FCBAC28BA6FD80080A243 /* ContentView.swift */,
+				911FCBAE28BA6FD90080A243 /* Assets.xcassets */,
+				911FCBB028BA6FD90080A243 /* Preview Content */,
+			);
+			path = "ZstuRunner-Watch Watch App";
+			sourceTree = "<group>";
+		};
+		911FCBB028BA6FD90080A243 /* Preview Content */ = {
+			isa = PBXGroup;
+			children = (
+				911FCBB128BA6FD90080A243 /* Preview Assets.xcassets */,
+			);
+			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		911FCBBA28BA6FD90080A243 /* ZstuRunner-Watch Watch AppTests */ = {
+			isa = PBXGroup;
+			children = (
+				911FCBBB28BA6FD90080A243 /* ZstuRunner_Watch_Watch_AppTests.swift */,
+			);
+			path = "ZstuRunner-Watch Watch AppTests";
+			sourceTree = "<group>";
+		};
+		911FCBC428BA6FDA0080A243 /* ZstuRunner-Watch Watch AppUITests */ = {
+			isa = PBXGroup;
+			children = (
+				911FCBC528BA6FDA0080A243 /* ZstuRunner_Watch_Watch_AppUITests.swift */,
+				911FCBC728BA6FDA0080A243 /* ZstuRunner_Watch_Watch_AppUITestsLaunchTests.swift */,
+			);
+			path = "ZstuRunner-Watch Watch AppUITests";
+			sourceTree = "<group>";
+		};
+		913777C928A260EF0075C29B /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				91CD2625291EA6FB0013C09A /* Dashboard */,
 				9155EBE2289175DC0005E88D /* ElecServiceView.swift */,
 				913777C728A260DE0075C29B /* LoginView.swift */,
 				913777C528A2238A0075C29B /* MyPrefencesView.swift */,
@@ -161,7 +274,7 @@
 				9184D6532879014C00DF9A67 /* RunnerView.swift */,
 				91833B43285790BB008C0E65 /* TechRunnerView.swift */,
 			);
-			path = Subviews;
+			path = Views;
 			sourceTree = "<group>";
 		};
 		913777CA28A261260075C29B /* Services */ = {
@@ -194,6 +307,30 @@
 			path = ZstuRunnerWidget;
 			sourceTree = "<group>";
 		};
+		91CD2621291EA4F10013C09A /* Models */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
+		91CD2622291EA4FA0013C09A /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				91CD2623291EA5DA0013C09A /* DashboardViewModel.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		91CD2625291EA6FB0013C09A /* Dashboard */ = {
+			isa = PBXGroup;
+			children = (
+				91CD2626291EA70C0013C09A /* DashboardView.swift */,
+				91DC4110287483670042C255 /* DashboardPanelView.swift */,
+			);
+			path = Dashboard;
+			sourceTree = "<group>";
+		};
 		91F9928928575F3600745F77 = {
 			isa = PBXGroup;
 			children = (
@@ -204,6 +341,9 @@
 				91F992A528575F3800745F77 /* ZstuRunnerTests */,
 				91F992AF28575F3800745F77 /* ZstuRunnerUITests */,
 				91405903287372E300D25870 /* ZstuRunnerWidget */,
+				911FCBA928BA6FD80080A243 /* ZstuRunner-Watch Watch App */,
+				911FCBBA28BA6FD90080A243 /* ZstuRunner-Watch Watch AppTests */,
+				911FCBC428BA6FDA0080A243 /* ZstuRunner-Watch Watch AppUITests */,
 				914058FE287372E300D25870 /* Frameworks */,
 				91F9929328575F3600745F77 /* Products */,
 			);
@@ -216,6 +356,9 @@
 				91F992A228575F3800745F77 /* ZstuRunnerTests.xctest */,
 				91F992AC28575F3800745F77 /* ZstuRunnerUITests.xctest */,
 				914058FD287372E300D25870 /* ZstuRunnerWidgetExtension.appex */,
+				911FCBA828BA6FD70080A243 /* ZstuRunner-Watch Watch App.app */,
+				911FCBB728BA6FD90080A243 /* ZstuRunner-Watch Watch AppTests.xctest */,
+				911FCBC128BA6FD90080A243 /* ZstuRunner-Watch Watch AppUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -223,11 +366,13 @@
 		91F9929428575F3600745F77 /* ZstuRunner */ = {
 			isa = PBXGroup;
 			children = (
+				91CD2622291EA4FA0013C09A /* ViewModels */,
+				91CD2621291EA4F10013C09A /* Models */,
 				9140591328737D5E00D25870 /* Info.plist */,
 				9140AC55287D1073000B90B8 /* ZstuRunner.entitlements */,
 				91F9929528575F3600745F77 /* ZstuRunnerApp.swift */,
 				91F9929728575F3600745F77 /* ContentView.swift */,
-				913777C928A260EF0075C29B /* Subviews */,
+				913777C928A260EF0075C29B /* Views */,
 				913777CA28A261260075C29B /* Services */,
 				91B1E8A028735946002CE67B /* sample.jpeg */,
 				91F9929928575F3700745F77 /* Assets.xcassets */,
@@ -264,6 +409,59 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
+		911FCBA728BA6FD70080A243 /* ZstuRunner-Watch Watch App */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 911FCBD328BA6FDA0080A243 /* Build configuration list for PBXNativeTarget "ZstuRunner-Watch Watch App" */;
+			buildPhases = (
+				911FCBA428BA6FD70080A243 /* Sources */,
+				911FCBA528BA6FD70080A243 /* Frameworks */,
+				911FCBA628BA6FD70080A243 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "ZstuRunner-Watch Watch App";
+			productName = "ZstuRunner-Watch Watch App";
+			productReference = 911FCBA828BA6FD70080A243 /* ZstuRunner-Watch Watch App.app */;
+			productType = "com.apple.product-type.application";
+		};
+		911FCBB628BA6FD90080A243 /* ZstuRunner-Watch Watch AppTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 911FCBD428BA6FDA0080A243 /* Build configuration list for PBXNativeTarget "ZstuRunner-Watch Watch AppTests" */;
+			buildPhases = (
+				911FCBB328BA6FD90080A243 /* Sources */,
+				911FCBB428BA6FD90080A243 /* Frameworks */,
+				911FCBB528BA6FD90080A243 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				911FCBB928BA6FD90080A243 /* PBXTargetDependency */,
+			);
+			name = "ZstuRunner-Watch Watch AppTests";
+			productName = "ZstuRunner-Watch Watch AppTests";
+			productReference = 911FCBB728BA6FD90080A243 /* ZstuRunner-Watch Watch AppTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		911FCBC028BA6FD90080A243 /* ZstuRunner-Watch Watch AppUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 911FCBD528BA6FDA0080A243 /* Build configuration list for PBXNativeTarget "ZstuRunner-Watch Watch AppUITests" */;
+			buildPhases = (
+				911FCBBD28BA6FD90080A243 /* Sources */,
+				911FCBBE28BA6FD90080A243 /* Frameworks */,
+				911FCBBF28BA6FD90080A243 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				911FCBC328BA6FDA0080A243 /* PBXTargetDependency */,
+			);
+			name = "ZstuRunner-Watch Watch AppUITests";
+			productName = "ZstuRunner-Watch Watch AppUITests";
+			productReference = 911FCBC128BA6FD90080A243 /* ZstuRunner-Watch Watch AppUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
 		914058FC287372E300D25870 /* ZstuRunnerWidgetExtension */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 91405912287372E500D25870 /* Build configuration list for PBXNativeTarget "ZstuRunnerWidgetExtension" */;
@@ -289,11 +487,13 @@
 				91F9928F28575F3600745F77 /* Frameworks */,
 				91F9929028575F3600745F77 /* Resources */,
 				9140590F287372E500D25870 /* Embed Foundation Extensions */,
+				911FCBCC28BA6FDA0080A243 /* Embed Watch Content */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 				9140590D287372E500D25870 /* PBXTargetDependency */,
+				911FCBCA28BA6FDA0080A243 /* PBXTargetDependency */,
 			);
 			name = ZstuRunner;
 			packageProductDependencies = (
@@ -348,8 +548,19 @@
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
 				LastSwiftUpdateCheck = 1400;
-				LastUpgradeCheck = 1400;
+				LastUpgradeCheck = 1410;
 				TargetAttributes = {
+					911FCBA728BA6FD70080A243 = {
+						CreatedOnToolsVersion = 14.0;
+					};
+					911FCBB628BA6FD90080A243 = {
+						CreatedOnToolsVersion = 14.0;
+						TestTargetID = 911FCBA728BA6FD70080A243;
+					};
+					911FCBC028BA6FD90080A243 = {
+						CreatedOnToolsVersion = 14.0;
+						TestTargetID = 911FCBA728BA6FD70080A243;
+					};
 					914058FC287372E300D25870 = {
 						CreatedOnToolsVersion = 14.0;
 					};
@@ -388,11 +599,37 @@
 				914058FC287372E300D25870 /* ZstuRunnerWidgetExtension */,
 				91F992A128575F3800745F77 /* ZstuRunnerTests */,
 				91F992AB28575F3800745F77 /* ZstuRunnerUITests */,
+				911FCBA728BA6FD70080A243 /* ZstuRunner-Watch Watch App */,
+				911FCBB628BA6FD90080A243 /* ZstuRunner-Watch Watch AppTests */,
+				911FCBC028BA6FD90080A243 /* ZstuRunner-Watch Watch AppUITests */,
 			);
 		};
 /* End PBXProject section */
 
 /* Begin PBXResourcesBuildPhase section */
+		911FCBA628BA6FD70080A243 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				911FCBB228BA6FD90080A243 /* Preview Assets.xcassets in Resources */,
+				911FCBAF28BA6FD90080A243 /* Assets.xcassets in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		911FCBB528BA6FD90080A243 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		911FCBBF28BA6FD90080A243 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		914058FB287372E300D25870 /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -430,6 +667,32 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		911FCBA428BA6FD70080A243 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				911FCBAD28BA6FD80080A243 /* ContentView.swift in Sources */,
+				911FCBAB28BA6FD80080A243 /* ZstuRunner_WatchApp.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		911FCBB328BA6FD90080A243 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				911FCBBC28BA6FD90080A243 /* ZstuRunner_Watch_Watch_AppTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		911FCBBD28BA6FD90080A243 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				911FCBC828BA6FDA0080A243 /* ZstuRunner_Watch_Watch_AppUITestsLaunchTests.swift in Sources */,
+				911FCBC628BA6FDA0080A243 /* ZstuRunner_Watch_Watch_AppUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		914058F9287372E300D25870 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -450,12 +713,14 @@
 				91B1E89D28735292002CE67B /* QRCodeView.swift in Sources */,
 				91F9929628575F3600745F77 /* ZstuRunnerApp.swift in Sources */,
 				9140590B287372E500D25870 /* ZstuRunnerWidget.intentdefinition in Sources */,
+				91CD2627291EA70C0013C09A /* DashboardView.swift in Sources */,
 				9155EBE3289175DC0005E88D /* ElecServiceView.swift in Sources */,
 				913777C628A2238A0075C29B /* MyPrefencesView.swift in Sources */,
 				91833B44285790BB008C0E65 /* TechRunnerView.swift in Sources */,
 				913777C828A260DE0075C29B /* LoginView.swift in Sources */,
 				9194FE01289C1B6000ED7518 /* Settings.swift in Sources */,
 				9184D6542879014C00DF9A67 /* RunnerView.swift in Sources */,
+				91CD2624291EA5DA0013C09A /* DashboardViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -479,6 +744,21 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		911FCBB928BA6FD90080A243 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 911FCBA728BA6FD70080A243 /* ZstuRunner-Watch Watch App */;
+			targetProxy = 911FCBB828BA6FD90080A243 /* PBXContainerItemProxy */;
+		};
+		911FCBC328BA6FDA0080A243 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 911FCBA728BA6FD70080A243 /* ZstuRunner-Watch Watch App */;
+			targetProxy = 911FCBC228BA6FDA0080A243 /* PBXContainerItemProxy */;
+		};
+		911FCBCA28BA6FDA0080A243 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 911FCBA728BA6FD70080A243 /* ZstuRunner-Watch Watch App */;
+			targetProxy = 911FCBC928BA6FDA0080A243 /* PBXContainerItemProxy */;
+		};
 		9140590D287372E500D25870 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			platformFilter = ios;
@@ -519,6 +799,156 @@
 /* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
+		911FCBCD28BA6FDA0080A243 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"ZstuRunner-Watch Watch App/Preview Content\"";
+				DEVELOPMENT_TEAM = 24Q962SK3B;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "ZstuRunner-Watch-Watch-App-Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "ZstuRunner-Watch";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = com.haren724.ZstuRunner1;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.haren724.ZstuRunner1.watchkitapp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 9.0;
+			};
+			name = Debug;
+		};
+		911FCBCE28BA6FDA0080A243 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"ZstuRunner-Watch Watch App/Preview Content\"";
+				DEVELOPMENT_TEAM = 24Q962SK3B;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "ZstuRunner-Watch-Watch-App-Info.plist";
+				INFOPLIST_KEY_CFBundleDisplayName = "ZstuRunner-Watch";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				INFOPLIST_KEY_WKCompanionAppBundleIdentifier = com.haren724.ZstuRunner1;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.haren724.ZstuRunner1.watchkitapp;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				WATCHOS_DEPLOYMENT_TARGET = 9.0;
+			};
+			name = Release;
+		};
+		911FCBCF28BA6FDA0080A243 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 24Q962SK3B;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.haren724.ZstuRunner-Watch-Watch-AppTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ZstuRunner-Watch Watch App.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/ZstuRunner-Watch Watch App";
+				WATCHOS_DEPLOYMENT_TARGET = 9.0;
+			};
+			name = Debug;
+		};
+		911FCBD028BA6FDA0080A243 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 24Q962SK3B;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.haren724.ZstuRunner-Watch-Watch-AppTests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ZstuRunner-Watch Watch App.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/ZstuRunner-Watch Watch App";
+				WATCHOS_DEPLOYMENT_TARGET = 9.0;
+			};
+			name = Release;
+		};
+		911FCBD128BA6FDA0080A243 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 24Q962SK3B;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.haren724.ZstuRunner-Watch-Watch-AppUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				TEST_TARGET_NAME = "ZstuRunner-Watch Watch App";
+				WATCHOS_DEPLOYMENT_TARGET = 9.0;
+			};
+			name = Debug;
+		};
+		911FCBD228BA6FDA0080A243 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 24Q962SK3B;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = "com.haren724.ZstuRunner-Watch-Watch-AppUITests";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = watchos;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 4;
+				TEST_TARGET_NAME = "ZstuRunner-Watch Watch App";
+				WATCHOS_DEPLOYMENT_TARGET = 9.0;
+			};
+			name = Release;
+		};
 		91405910287372E500D25870 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -526,7 +956,6 @@
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
 				CODE_SIGN_ENTITLEMENTS = ZstuRunnerWidgetExtension.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
-				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 24Q962SK3B;
@@ -540,7 +969,7 @@
 					"@executable_path/../../Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.haren724.ZstuRunner.ZstuRunnerWidget;
+				PRODUCT_BUNDLE_IDENTIFIER = com.haren724.ZstuRunner1.ZstuRunner1Widgets;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SKIP_INSTALL = YES;
@@ -558,7 +987,6 @@
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
 				CODE_SIGN_ENTITLEMENTS = ZstuRunnerWidgetExtension.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
-				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 24Q962SK3B;
@@ -572,7 +1000,7 @@
 					"@executable_path/../../Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.haren724.ZstuRunner.ZstuRunnerWidget;
+				PRODUCT_BUNDLE_IDENTIFIER = com.haren724.ZstuRunner1.ZstuRunner1Widgets;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SKIP_INSTALL = YES;
@@ -587,6 +1015,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
@@ -633,7 +1062,6 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -647,6 +1075,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++17";
@@ -687,7 +1116,6 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
@@ -704,7 +1132,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = ZstuRunner/ZstuRunner.entitlements;
-				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"ZstuRunner/Preview Content\"";
@@ -727,8 +1155,9 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.haren724.ZstuRunner;
+				PRODUCT_BUNDLE_IDENTIFIER = com.haren724.ZstuRunner1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = YES;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
@@ -745,7 +1174,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = ZstuRunner/ZstuRunner.entitlements;
-				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"ZstuRunner/Preview Content\"";
@@ -768,8 +1197,9 @@
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.haren724.ZstuRunner;
+				PRODUCT_BUNDLE_IDENTIFIER = com.haren724.ZstuRunner1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SUPPORTED_PLATFORMS = "iphoneos iphonesimulator";
 				SUPPORTS_MACCATALYST = YES;
 				SUPPORTS_MAC_DESIGNED_FOR_IPHONE_IPAD = NO;
@@ -858,6 +1288,33 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		911FCBD328BA6FDA0080A243 /* Build configuration list for PBXNativeTarget "ZstuRunner-Watch Watch App" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				911FCBCD28BA6FDA0080A243 /* Debug */,
+				911FCBCE28BA6FDA0080A243 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		911FCBD428BA6FDA0080A243 /* Build configuration list for PBXNativeTarget "ZstuRunner-Watch Watch AppTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				911FCBCF28BA6FDA0080A243 /* Debug */,
+				911FCBD028BA6FDA0080A243 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		911FCBD528BA6FDA0080A243 /* Build configuration list for PBXNativeTarget "ZstuRunner-Watch Watch AppUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				911FCBD128BA6FDA0080A243 /* Debug */,
+				911FCBD228BA6FDA0080A243 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		91405912287372E500D25870 /* Build configuration list for PBXNativeTarget "ZstuRunnerWidgetExtension" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

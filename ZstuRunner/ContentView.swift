@@ -77,153 +77,161 @@ struct ContentView: View {
     
 // MARK: - Overview
     var overview: some View {
-        List {
-            Section("CURRENT_TERM_TOTAL_MILEAGE") {
-                DashboardPanelView("TOTAL_MILEAGE", a: area_a + orientate_a, b: mileage_b, parameter: "km").padding()
-                HStack {
-                    Text("ORIENTATE_DIST")
-                    Spacer()
-                    Text("\(String(format: "%.01f", orientate_a))km")
-                }
-                HStack {
-                    Text("AREA_DIST")
-                    Spacer()
-                    Text("\(String(format: "%.01f", area_a))km")
-                }
-//                        这个是一个学期选择器，本来是用来查询每个学期的跑步情况（暂时弃用）
-//                        Picker("Term", selection: $term) {
-//                            Text("Freshman 1").tag(Term.freshman1)
-//                            Text("Freshman 2").tag(Term.freshman2)
-//                            Text("Sophomore 1").tag(Term.sophomore1)
-//                            Text("Sophomore 2").tag(Term.sophomore2)
-//                            Text("Junior 1").tag(Term.junior1)
-//                            Text("Junior 2").tag(Term.junior2)
-//                            Text("Senior 1").tag(Term.senior1)
-//                            Text("Senior 2").tag(Term.senior2)
-//                        }
-            }
-            Section {
-                Button("_REFRESH") {
-                    if !settings.stuID.isEmpty {
-                        isstuIDEmpty = false
-//                                { (_ tuple: (orientate: Double, area: Double)) in
-//                                    orientate_a = tuple.orientate
-//                                    area_a = tuple.area
-//                                }(overviewRefresh(settings.stuID))
-                        print(overviewRefresh(settings.stuID))
-                    } else {
-                        isstuIDEmpty = true
+        NavigationView {
+            List {
+                Section("CURRENT_TERM_TOTAL_MILEAGE") {
+                    DashboardPanelView("TOTAL_MILEAGE", a: area_a + orientate_a, b: mileage_b, parameter: "km").padding()
+                    HStack {
+                        Text("ORIENTATE_DIST")
+                        Spacer()
+                        Text("\(String(format: "%.01f", orientate_a))km")
                     }
-                }.alert("ID_EMPTY", isPresented: $isstuIDEmpty) {
-                    Button("Dismiss", role: .cancel) {}
+                    HStack {
+                        Text("AREA_DIST")
+                        Spacer()
+                        Text("\(String(format: "%.01f", area_a))km")
+                    }
+    //                        这个是一个学期选择器，本来是用来查询每个学期的跑步情况（暂时弃用）
+    //                        Picker("Term", selection: $term) {
+    //                            Text("Freshman 1").tag(Term.freshman1)
+    //                            Text("Freshman 2").tag(Term.freshman2)
+    //                            Text("Sophomore 1").tag(Term.sophomore1)
+    //                            Text("Sophomore 2").tag(Term.sophomore2)
+    //                            Text("Junior 1").tag(Term.junior1)
+    //                            Text("Junior 2").tag(Term.junior2)
+    //                            Text("Senior 1").tag(Term.senior1)
+    //                            Text("Senior 2").tag(Term.senior2)
+    //                        }
                 }
-            }
+                Section {
+                    Button("_REFRESH") {
+                        if !settings.stuID.isEmpty {
+                            isstuIDEmpty = false
+    //                                { (_ tuple: (orientate: Double, area: Double)) in
+    //                                    orientate_a = tuple.orientate
+    //                                    area_a = tuple.area
+    //                                }(overviewRefresh(settings.stuID))
+                            print(overviewRefresh(settings.stuID))
+                        } else {
+                            isstuIDEmpty = true
+                        }
+                    }.alert("ID_EMPTY", isPresented: $isstuIDEmpty) {
+                        Button("Dismiss", role: .cancel) {}
+                    }
+                }
+            }.navigationTitle("_OVERVIEW")
         }
     }
     
 // MARK: - Run
     var run: some View {
-        List {
-            Section("CONFIGURATION") {
-                Picker(selection: $runMode, label: Text("CHOOSE_RUN_MODE")) {
-                    Text("IN_AREA_MODE").tag(RunMode.inArea)
-                    Text("ORIENTED_MODE").tag(RunMode.oriented)
+        NavigationView {
+            List {
+                Section("CONFIGURATION") {
+                    Picker(selection: $runMode, label: Text("CHOOSE_RUN_MODE")) {
+                        Text("IN_AREA_MODE").tag(RunMode.inArea)
+                        Text("ORIENTED_MODE").tag(RunMode.oriented)
+                    }
                 }
-            }
-            Section {
-                Map(
-                    coordinateRegion: .constant(.init(center: .init(latitude: 30.3135, longitude: 120.3565), latitudinalMeters: 600, longitudinalMeters: 600)),
-                    interactionModes: MapInteractionModes(),
-                    showsUserLocation: true,
-                    userTrackingMode: $settings.tracking
-                ).background(RoundedCorners(color: .blue, tl: 0, tr: 0, bl: 0, br: 0)).scaledToFit()
-                    .listRowBackground(EmptyView()).listRowInsets(.init(top: 0, leading: 0, bottom: 0, trailing: 0))
-                Label {
-                    Text("Location Verified")
-                } icon: {
-                    Image(systemName: "checkmark.circle").foregroundColor(.green)
+                Section {
+                    Map(
+                        coordinateRegion: .constant(.init(center: .init(latitude: 30.3135, longitude: 120.3565), latitudinalMeters: 600, longitudinalMeters: 600)),
+                        interactionModes: MapInteractionModes(),
+                        showsUserLocation: true,
+                        userTrackingMode: $settings.tracking
+                    ).background(RoundedCorners(color: .blue, tl: 0, tr: 0, bl: 0, br: 0)).scaledToFit()
+                        .listRowBackground(EmptyView()).listRowInsets(.init(top: 0, leading: 0, bottom: 0, trailing: 0))
+                    Label {
+                        Text("Location Verified")
+                    } icon: {
+                        Image(systemName: "checkmark.circle").foregroundColor(.green)
+                    }
+                }.listRowSeparator(.hidden)
+                Section {
+                    Button(action: {
+                        if LocationManager().manager.authorizationStatus == .notDetermined {
+                            LocationManager().manager.requestWhenInUseAuthorization()
+                        } else if LocationManager().manager.authorizationStatus == .denied {
+                            isLocationRequestDenied = true
+                        } else {
+                            isRunning = true
+                        }
+                    }, label: {
+                        HStack {
+                            Spacer()
+                            Text("_GO").bold().foregroundColor(.white)
+                            Spacer()
+                        }
+                    }).listRowBackground(RoundedRectangle(cornerRadius: 2).foregroundColor(.accentColor))
+                        .fullScreenCover(isPresented: $isRunning) {
+                            RunnerView()
+                        }
+                        .alert("LOCATION_SERVICE_DENIED", isPresented: $isLocationRequestDenied) {
+                            
+                        }
                 }
-            }.listRowSeparator(.hidden)
-            Section {
-                Button(action: {
-                    if LocationManager().manager.authorizationStatus == .notDetermined {
-                        LocationManager().manager.requestWhenInUseAuthorization()
-                    } else if LocationManager().manager.authorizationStatus == .denied {
-                        isLocationRequestDenied = true
-                    } else {
-                        isRunning = true
-                    }
-                }, label: {
-                    HStack {
-                        Spacer()
-                        Text("_GO").bold().foregroundColor(.white)
-                        Spacer()
-                    }
-                }).listRowBackground(RoundedRectangle(cornerRadius: 2).foregroundColor(.accentColor))
-                    .fullScreenCover(isPresented: $isRunning) {
-                        RunnerView()
-                    }
-                    .alert("LOCATION_SERVICE_DENIED", isPresented: $isLocationRequestDenied) {
-                        
-                    }
-            }
+            }.navigationTitle("_RUN")
         }
     }
 
     
 // MARK: - My
     var my: some View {
-        List {
-            NavigationLink(destination: MyPrefencesView().onAppear { settings.isTabBarHidden = true }, label: {
-                HStack {
-                    Image("portrait")
-                        .resizable().aspectRatio(contentMode: .fit)
-                        .frame(height: 64).clipShape(Circle()).padding(.trailing)
-                    VStack(alignment: .leading) {
-                        Text(settings.username).font(.title2)
-                        Text(settings.stuID).font(.footnote)
+        NavigationView {
+            List {
+                NavigationLink(destination: MyPrefencesView().onAppear { settings.isTabBarHidden = true }, label: {
+                    HStack {
+                        Image("portrait")
+                            .resizable().aspectRatio(contentMode: .fit)
+                            .frame(height: 64).clipShape(Circle()).padding(.trailing)
+                        VStack(alignment: .leading) {
+                            Text(settings.username).font(.title2)
+                            Text(settings.stuID).font(.footnote)
+                        }
                     }
+                })
+                
+                Section {
+                    DisclosureGroup("CHECK_RUNNING_PLAN") {
+                        Section {
+                            VStack(alignment: .leading) {
+                                Text("_BOY").bold().padding(.bottom, 1)
+                                Section {
+                                    Text("BOY_MIN_DISTANCE")
+                                    Text("BOY_SPEED_RANGE")
+                                }.padding(.leading)
+                            }
+                            VStack(alignment: .leading) {
+                                Text("_GIRL").bold().padding(.bottom, 1)
+                                Section {
+                                    Text("GIRL_MIN_DISTANCE")
+                                    Text("GIRL_SPEED_RANGE")
+                                }.padding(.leading)
+                            }
+                        }.foregroundColor(.primary)
+                        
+                    }.accentColor(.init(white: colorScheme == .light ? 0.72 : 0.35))
                 }
-            })
-            Section {
-                DisclosureGroup("CHECK_RUNNING_PLAN") {
-                    Section {
-                        VStack(alignment: .leading) {
-                            Text("_BOY").bold().padding(.bottom, 1)
-                            Section {
-                                Text("BOY_MIN_DISTANCE")
-                                Text("BOY_SPEED_RANGE")
-                            }.padding(.leading)
-                        }
-                        VStack(alignment: .leading) {
-                            Text("_GIRL").bold().padding(.bottom, 1)
-                            Section {
-                                Text("GIRL_MIN_DISTANCE")
-                                Text("GIRL_SPEED_RANGE")
-                            }.padding(.leading)
-                        }
-                    }.foregroundColor(.primary)
-                    
-                }.accentColor(.init(white: colorScheme == .light ? 0.72 : 0.35))
-            }
-            Section {
-                HStack {
-                    Text("VERSION")
-                    Spacer()
-                    Text(Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as! String)
-                        .foregroundColor(.secondary)
+                Section {
+                    HStack {
+                        Text("VERSION")
+                        Spacer()
+                        Text(Bundle.main.object(forInfoDictionaryKey: "CFBundleShortVersionString") as! String)
+                            .foregroundColor(.secondary)
+                    }
+                    HStack {
+                        Button("CHECK_UPDATE") { }
+                        Spacer()
+                        Text("_LATEST").foregroundColor(.secondary)
+                    }
+    //                        Button("MORE_APPS", action: { moreApps.toggle() }).fullScreenCover(isPresented: $moreApps, content: { QRCodeView() })
+                    NavigationLink(destination: {
+                        Text("Hello")
+                            .onAppear { settings.isTabBarHidden = true }
+                    }, label: { Text("MORE_APPS") })
                 }
-                HStack {
-                    Button("CHECK_UPDATE") { }
-                    Spacer()
-                    Text("_LATEST").foregroundColor(.secondary)
-                }
-//                        Button("MORE_APPS", action: { moreApps.toggle() }).fullScreenCover(isPresented: $moreApps, content: { QRCodeView() })
-                NavigationLink(destination: {
-                    Text("Hello")
-                        .onAppear { settings.isTabBarHidden = true }
-                }, label: { Text("MORE_APPS") })
-            }
+            }.navigationTitle("_MY")
+                .onAppear { settings.isTabBarHidden = false }
         }
     }
 
@@ -232,66 +240,25 @@ struct ContentView: View {
         if settings.mode == .tech {
             TechRunnerView(settings: settings)
         } else {
-            TabView(selection: $selectedTab) {
-                Group {
-                    NavigationView {
-                        overview.navigationTitle("_OVERVIEW")
-                    }.tabItem { Label("_OVERVIEW", systemImage: "speedometer") }.tag(0)
-                    NavigationView {
-                        run.navigationTitle("_RUN")
-                    }.tabItem { Label("_RUN", systemImage: "figure.run") }.tag(1).badge("Go!")
-                    NavigationView {
-                        my.navigationTitle("_MY").onAppear { settings.isTabBarHidden = false }
-                    }.tabItem { Label("_MY", systemImage: "person.fill") }.tag(2)
-                }.toolbar(settings.isTabBarHidden ? .hidden : .visible, for: .tabBar)
-//                    if isLogged {
-//
-//                    } else {
-//                        login.tabItem { Label("_MY", systemImage: "person.fill") }.tag(2)
-//                    }
-            }.onOpenURL(perform: { url in
-                self.selectedTab = 2
-                self.moreApps = url == URL(string: "okay")!
-            })
-            .fullScreenCover(isPresented: .init(get: { !settings.isLogged }, set: { _ in })) {
-                LoginView()
+            NavigationView {
+                TabView(selection: $selectedTab) {
+                    overview.tabItem { Label("_OVERVIEW", systemImage: "speedometer") }.tag(0)
+                    run.tabItem { Label("_RUN", systemImage: "figure.run") }.tag(1).badge("Go!")
+                    my.tabItem { Label("_MY", systemImage: "person.fill") }.tag(2)
+                }.onOpenURL(perform: { url in
+                    self.selectedTab = 2
+                    self.moreApps = url == URL(string: "okay")!
+                })
+                .fullScreenCover(isPresented: .init(get: { !settings.isLogged }, set: { _ in } /*不知道这样做意义何在，等有空了自习研究一下文档吧*/)) {
+                    LoginView()
+                }
+                .fullScreenCover(isPresented: $moreApps) { QRCodeView() }
             }
-            .fullScreenCover(isPresented: $moreApps) { QRCodeView() }
         }
     }
 }
 
 // MARK: - Other Structs
-struct Password: UIViewRepresentable {
-    
-    init(_ service: Service) {
-        self.service = service
-    }
-    
-    enum Service {
-        case change, reset
-    }
-    let service: Service
-    
-    func makeUIView(context: Context) -> WKWebView {
-        WKWebView(frame: .zero)
-    }
-    
-    func updateUIView(_ uiView: WKWebView, context: Context) {
-        uiView.callAsyncJavaScript("""
-    var a = document.querySelector("body > app-stage > ion-app > ion-router-outlet > app-root > ion-router-outlet > app-retrieve-password > ion-header > ion-toolbar > ion-title");
-    a.style.display = "none"
-    return 0;
-""", arguments: [:], in: nil, in: .page) { print("********\($0)********") }
-        switch service {
-        case .change:
-            uiView.load(URLRequest(url: URL(string: "https://service.zstu.edu.cn/public/client/phone/retrieve?backUrl=https:%2F%2Fsso.zstu.edu.cn%2Flogin")!))
-        case .reset:
-            uiView.load(URLRequest(url: URL(string: "https://service.zstu.edu.cn/public/client/phone/retrieve?backUrl=https:%2F%2Fsso.zstu.edu.cn%2Flogin")!))
-        }
-    }
-}
-
 struct RoundedCorners: View {
     var color: Color = .blue
     var tl: CGFloat = 0.0

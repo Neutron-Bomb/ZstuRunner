@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct DashboardPanelView: View {
+    @StateObject private var viewModel = ViewModel()
     
     init(_ name: String, a: Double, b: Double) {
         self.name  = name

@@ -7,6 +7,7 @@
 
 import SwiftUI
 import QRCode
+import WebKit
 
 struct QRCodeView: View {
     
@@ -142,8 +143,44 @@ struct QRCodeView: View {
     }
 }
 
+struct QRCodeNewView: View {
+    
+    struct WebView: UIViewRepresentable {
+        
+        var url: URL
+        
+        init (_ url: URL) {
+            self.url = url
+        }
+        
+        func makeUIView(context: Context) -> WKWebView {
+            return WKWebView(frame: .zero)
+        }
+        
+        func updateUIView(_ uiView: WKWebView, context: Context) {
+            uiView.load(.init(url: self.url))
+        }
+    }
+    
+    var body: some View {
+        WebView(.init(string: "http://txm.zstu.edu.cn:5008/StuPassCode/Index")!)
+    }
+}
+
 struct QRCodeView_Previews: PreviewProvider {
     static var previews: some View {
-        QRCodeView()
+        NavigationView {
+            QRCodeNewView()
+                .navigationTitle("校园通行码")
+                .navigationBarTitleDisplayMode(.inline)
+                .toolbar {
+                    ToolbarItem(placement: .bottomBar) {
+                        HStack {
+                            Button {  } label: { Image(systemName: "chevron.backward") }
+                            Button {  } label: { Image(systemName: "chevron.forward") }
+                        }.foregroundColor(.primary)
+                    }
+                }
+        }
     }
 }

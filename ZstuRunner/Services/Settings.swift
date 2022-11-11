@@ -6,10 +6,11 @@
 //
 
 import Foundation
+import SwiftUI
 import _MapKit_SwiftUI
 
 class Settings: ObservableObject {
-    // Initializers
+    
     init() {
         
     }
@@ -32,11 +33,12 @@ class Settings: ObservableObject {
     // Published properties
     @Published var mode: Mode = .zstu
     @Published var stuID = UserDefaults.standard.string(forKey: "stuID") ?? ""
+//    @AppStorage("stuID") var stuID = ""
     @Published var manager = LocationManager()
     @Published var tracking: MapUserTrackingMode = .follow
     @Published var isLogged = UserDefaults.standard.bool(forKey: "isLogged")
-    
     @Published var username = UserDefaults.standard.string(forKey: "Username") ?? "student"
     @Published var password = UserDefaults.standard.string(forKey: "Password") ?? ""
     @Published var isTabBarHidden = false
+    
 }
