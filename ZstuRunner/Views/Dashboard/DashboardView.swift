@@ -38,21 +38,19 @@ struct DashboardView: View {
     //                        }
                 }
                 Section {
-                    Button("_REFRESH") {
-                        Task { await viewModel.fetchRunData() }
-//                        if !settings.stuID.isEmpty {
-//                            isstuIDEmpty = false
-//    //                                { (_ tuple: (orientate: Double, area: Double)) in
-//    //                                    orientate_a = tuple.orientate
-//    //                                    viewModel.areaFinished = tuple.area
-//    //                                }(overviewRefresh(settings.stuID))
-//                            print(overviewRefresh(settings.stuID))
-//                        } else {
-//                            isstuIDEmpty = true
-//                        }
-                    }.alert("ID_EMPTY", isPresented: $viewModel.alertStuIDEmpty) {
-                        Button("Dismiss", role: .cancel) {}
+                    HStack {
+                        if viewModel.refreshing {
+                            ProgressView().padding(.trailing, 4)
+                        }
+                        Button("_REFRESH") {
+                            Task { await viewModel.fetchRunData() }
+                        }.disabled(viewModel.refreshing)
                     }
+                }.alert("ID_EMPTY", isPresented: $viewModel.alertStuIDEmpty) {
+                    Button("Dismiss", role: .cancel) {}
+                }
+                .alert("Timeout", isPresented: $viewModel.alertTimeout) {
+                    Button("Dismiss", role: .cancel) {}
                 }
             }.navigationTitle("_OVERVIEW")
         }
