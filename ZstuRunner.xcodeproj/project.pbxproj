@@ -366,12 +366,12 @@
 		91F9929428575F3600745F77 /* ZstuRunner */ = {
 			isa = PBXGroup;
 			children = (
-				91CD2622291EA4FA0013C09A /* ViewModels */,
-				91CD2621291EA4F10013C09A /* Models */,
 				9140591328737D5E00D25870 /* Info.plist */,
 				9140AC55287D1073000B90B8 /* ZstuRunner.entitlements */,
 				91F9929528575F3600745F77 /* ZstuRunnerApp.swift */,
 				91F9929728575F3600745F77 /* ContentView.swift */,
+				91CD2621291EA4F10013C09A /* Models */,
+				91CD2622291EA4FA0013C09A /* ViewModels */,
 				913777C928A260EF0075C29B /* Views */,
 				913777CA28A261260075C29B /* Services */,
 				91B1E8A028735946002CE67B /* sample.jpeg */,

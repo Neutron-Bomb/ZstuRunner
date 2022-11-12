@@ -8,7 +8,11 @@
 import SwiftUI
 
 struct DashboardPanelView: View {
-    @StateObject private var viewModel = ViewModel()
+    let name: String
+    var a: Double
+    var b: Double
+    var parameter: String? = nil
+    private var progress: Double { a / b }
     
     init(_ name: String, a: Double, b: Double) {
         self.name  = name
@@ -23,12 +27,6 @@ struct DashboardPanelView: View {
         self.b = b
         self.parameter = parameter
     }
-    
-    let name: String
-    var a: Double
-    var b: Double
-    var parameter: String? = nil
-    private var progress: Double { a / b }
     
     var history: some View {
         List {

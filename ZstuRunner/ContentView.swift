@@ -242,7 +242,7 @@ struct ContentView: View {
         } else {
             NavigationView {
                 TabView(selection: $selectedTab) {
-                    overview.tabItem { Label("_OVERVIEW", systemImage: "speedometer") }.tag(0)
+                    DashboardView().tabItem { Label("_OVERVIEW", systemImage: "speedometer") }.tag(0)
                     run.tabItem { Label("_RUN", systemImage: "figure.run") }.tag(1).badge("Go!")
                     my.tabItem { Label("_MY", systemImage: "person.fill") }.tag(2)
                 }.onOpenURL(perform: { url in

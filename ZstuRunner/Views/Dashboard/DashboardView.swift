@@ -14,16 +14,16 @@ struct DashboardView: View {
         NavigationView {
             List {
                 Section("CURRENT_TERM_TOTAL_MILEAGE") {
-                    DashboardPanelView("TOTAL_MILEAGE", a: area_a + orientate_a, b: mileage_b, parameter: "km").padding()
+                    DashboardPanelView("TOTAL_MILEAGE", a: viewModel.areaFinished + viewModel.orieFinished, b: viewModel.mileageTarget, parameter: "km").padding()
                     HStack {
                         Text("ORIENTATE_DIST")
                         Spacer()
-                        Text("\(String(format: "%.01f", orientate_a))km")
+                        Text("\(String(format: "%.01f", viewModel.orieFinished))km")
                     }
                     HStack {
                         Text("AREA_DIST")
                         Spacer()
-                        Text("\(String(format: "%.01f", area_a))km")
+                        Text("\(String(format: "%.01f", viewModel.areaFinished))km")
                     }
     //                        这个是一个学期选择器，本来是用来查询每个学期的跑步情况（暂时弃用）
     //                        Picker("Term", selection: $term) {
@@ -39,17 +39,18 @@ struct DashboardView: View {
                 }
                 Section {
                     Button("_REFRESH") {
-                        if !settings.stuID.isEmpty {
-                            isstuIDEmpty = false
-    //                                { (_ tuple: (orientate: Double, area: Double)) in
-    //                                    orientate_a = tuple.orientate
-    //                                    area_a = tuple.area
-    //                                }(overviewRefresh(settings.stuID))
-                            print(overviewRefresh(settings.stuID))
-                        } else {
-                            isstuIDEmpty = true
-                        }
-                    }.alert("ID_EMPTY", isPresented: $isstuIDEmpty) {
+                        Task { await viewModel.fetchRunData() }
+//                        if !settings.stuID.isEmpty {
+//                            isstuIDEmpty = false
+//    //                                { (_ tuple: (orientate: Double, area: Double)) in
+//    //                                    orientate_a = tuple.orientate
+//    //                                    viewModel.areaFinished = tuple.area
+//    //                                }(overviewRefresh(settings.stuID))
+//                            print(overviewRefresh(settings.stuID))
+//                        } else {
+//                            isstuIDEmpty = true
+//                        }
+                    }.alert("ID_EMPTY", isPresented: $viewModel.alertStuIDEmpty) {
                         Button("Dismiss", role: .cancel) {}
                     }
                 }
